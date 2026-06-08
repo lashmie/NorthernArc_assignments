@@ -1,0 +1,54 @@
+
+flight(
+
+airline
+flightnumber
+source
+destination
+depatureDAteTime String
+arrivalDateTime String
+get status()
+showDetails()
+)
+
+car(
+
+    make 
+    model
+    year
+    start()
+    stop()
+    getDEtails()
+
+)
+
+laptop(
+brand
+model
+processor
+ram
+storage
+turnOn()
+turnOff()
+getDetails()
+
+)
+
+
+Chair(
+    material
+    color
+    weight
+    adjustHeight()
+    getDetails
+
+)
+
+light(
+wattage
+brand
+turnOn()
+turnOff()
+getDetails()
+    
+)

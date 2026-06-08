@@ -1,0 +1,39 @@
+public class person {
+    protected String fname;
+    protected String lname;
+    protected int age;
+
+    public person(String fname,String lname,int age){
+        this.fname=fname;
+        this.lname=lname;
+        this.age=age;
+    }
+
+    public void setFname(String name){
+        this.fname=name;
+    }
+    public void setlname(String name){
+        this.lname=name;
+    }
+    public void setAge(int age){
+        this.age=age;
+    }
+
+    //getters
+    public String getFname(){
+        return fname;
+    }
+    public String getLname(){
+        return lname;
+    }
+
+    public int getAge(){
+        return age;
+    }
+    public void showDetails(){
+        System.out.println("fname"+fname);
+        System.out.println( "lname"+lname);
+        System.out.println("Age"+age);
+    }
+    
+}
