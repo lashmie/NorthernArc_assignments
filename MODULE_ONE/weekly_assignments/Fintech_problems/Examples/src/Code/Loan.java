@@ -10,7 +10,6 @@ abstract class Loan {
         this.customerName = customerName;
         this.loanamount = loanAmount;
 
-        // Loan CREATES EMI → strong ownership
         this.emiSchedule = new EMISchedule(60);
     }
 

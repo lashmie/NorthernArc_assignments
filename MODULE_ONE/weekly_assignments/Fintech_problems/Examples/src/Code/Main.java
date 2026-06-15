@@ -5,8 +5,7 @@ public class Main {
 
         //loan officer
         LoanOfficer l1 = new LoanOfficer("lavanya");
-        //association property is added here
-
+        //association is added here
         Scanner sc = new Scanner(System.in);
         System.out.println("Choose the loan type 1.carloan 2.homeloan 3.bikeloan ");
         int val= sc.nextInt();

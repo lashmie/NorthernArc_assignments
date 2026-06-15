@@ -6,9 +6,11 @@ public class Person implements Comparable<Person> {
 
     private String name;
     private int age;
+    private String lname;
 
-    public Person(String name, int age) {
+    public Person(String name,String lname, int age) {
         this.name = name;
+        this.lname=lname;
         this.age = age;
     }
 
@@ -24,7 +26,6 @@ public class Person implements Comparable<Person> {
     public String toString() {
         return "Person{name='" + name + "', age=" + age + "}";
     }
-
 
 
     @Override

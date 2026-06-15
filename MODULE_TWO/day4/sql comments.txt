@@ -1,0 +1,26 @@
+create table book(id SERIAL primary key,book_name varchar not null,author varchar NOT null,no_of_page int);
+INSERT into book(book_name,author,no_of_page)values('ramyan','valmiki',10000);
+INSERT into book(book_name,author,no_of_page)values('harry potter','emma watson',350),('Positivity','lavanya',90),('wealth','shacarri',300);
+update book set author='harry' where book_name='harry potter';
+create table doctor(id serial PRIMARY key ,fname VARCHAR(30) not null,lname varchar(30),hospital varchar);
+
+alter table doctor
+add column specialization varchar;
+INSERT into doctor (fname,lname,specialization,hospital)values('mohi','elavarsan','cardio','bloom'),('vishnu','selvam','cardio','good sheperd'),('lokesh','selvam','general','global');
+
+alter table doctor
+add column summa varchar;
+
+alter table doctor
+drop summa;
+
+UPDATE doctor
+set hospital ='villupuram hospital'
+where lname='elavarasan' 
+  or lname='selvam';
+
+UPDATE doctor
+SET hospital = 'villupuram hospital'
+WHERE lname IN ('elavarasan', 'selvam');
+
+ select * from book order by no_of_page desc; select * from book order by no_of_page,fname;

@@ -14,7 +14,7 @@ public class PortfolioMain {
                     "Retail Loans",
                     List.of(loan1, loan2)
             );
-    //p1.show();
+//    p1.show();
 
 //p1.show(p1.getPortfolioname(), List.of(loan1, loan2));
 //    p1.show(p1.getPortfolioname(), List.of(loan1, loan2));
