@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="creditCard" class="Services.CreditCard"></bean>
+    <bean id="DebitCard" class="Services.DebitCard"></bean>
+    <bean id="upi" class ="Services.upi"></bean>
+    <bean id="email" class="Services.Email"></bean>
+    <bean id ="wa" class ="Services.wa"></bean>
+    <bean id="TextMessage" class="Services.TextMessage"></bean>
+    <bean id="expenseManager" class="Services.ExpenseManager">
+        <constructor-arg ref="creditCard"></constructor-arg>
+        <constructor-arg ref="email"></constructor-arg></bean>
+</beans>
