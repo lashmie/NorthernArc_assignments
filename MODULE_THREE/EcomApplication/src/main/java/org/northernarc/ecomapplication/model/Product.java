@@ -1,5 +1,6 @@
 package org.northernarc.ecomapplication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +23,6 @@ public class Product {
     private double cost;
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private List<Order_Item> orderItems;
 }

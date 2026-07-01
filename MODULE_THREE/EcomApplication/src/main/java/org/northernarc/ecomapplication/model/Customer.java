@@ -1,5 +1,6 @@
 package org.northernarc.ecomapplication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class Customer {
     private String address;
 
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private List<Order> orders;
 
 }

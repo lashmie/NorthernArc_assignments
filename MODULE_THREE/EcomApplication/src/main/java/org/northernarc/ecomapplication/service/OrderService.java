@@ -9,6 +9,7 @@ public interface OrderService {
 Order PlaceOrder(Long CustomerId, List<Order_Item> items);
 Order getOrderById(Long OrderId);
 List<Order> getOrdersByCustomerId(Long customerId);
+List<Order> getOrdersByCustomerName(String customerName);
 List<Order> getAllOrders();
 void cancelOrder(Long orderId);
 }

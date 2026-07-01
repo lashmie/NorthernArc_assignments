@@ -1,7 +1,6 @@
 package org.northernarc.ecomapplication.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,11 +19,10 @@ public class Order_Item {
     private int quantity;
 
     @ManyToOne
-    @JsonBackReference
     private Product product;
 
-    @OneToMany
-    @JsonManagedReference
+    @ManyToOne
+    @JsonIgnore
     private Order order;
 
 

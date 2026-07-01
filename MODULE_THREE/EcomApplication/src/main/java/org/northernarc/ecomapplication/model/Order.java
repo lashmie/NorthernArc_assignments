@@ -1,7 +1,5 @@
 package org.northernarc.ecomapplication.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,11 +22,9 @@ public class Order {
     private Date delvieryDate;
 
     @ManyToOne
-    @JsonBackReference
     private Customer customer;
 
-    @OneToMany
-    @JsonManagedReference
-    private List<Order> Order_Item;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order_Item> orderItems;
 
 }
