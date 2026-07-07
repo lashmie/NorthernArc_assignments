@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+
+<button onclick="demo()">Click me for magic</button>
+<button onclick="sort()">Click to sort</button>
+<div id="content"></div>
+
+<script>
+function demo() {
+
+    var names = ["lavanya", "renji", "yuva", "vishnu", "kamya"];
+
+    var content = `
+        <table border="1">
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+            </tr>
+    `;
+
+    for(let i = 0; i < names.length; i++) {
+        content += `
+            <tr>
+                <td>${i + 1}</td>
+                <td>${names[i].toUpperCase()}</td>
+            </tr>
+        `;
+    }
+
+    content += "</table>";
+
+    document.getElementById("content").innerHTML = content;
+}
+function sort(){
+    
+}
+</script>
+
+</body>
+</html>

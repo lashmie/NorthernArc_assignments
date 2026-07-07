@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form to Table</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <h2 class="text-center">Student Details</h2>
+
+    <table class="table table-bordered mt-4">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Skills</th>
+        </tr>
+
+        <tr>
+            <td id="tname">-</td>
+            <td id="temail">-</td>
+            <td id="tmobile">-</td>
+            <td id="tskills">-</td>
+        </tr>
+    </table>
+
+    <h4>Enter Details</h4>
+
+    <div class="mb-3">
+        <label>Name</label>
+        <input type="text" id="name" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" id="email" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Mobile</label>
+        <input type="text" id="mobile" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Skills</label>
+
+
+        <input type="checkbox" id="html"> HTML
+
+        <input type="checkbox" id="css"> CSS
+
+        <input type="checkbox" id="js"> JavaScript
+
+        <input type="checkbox" id="java"> Java
+
+        <input type="checkbox" id="angular"> Angular
+    </div>
+
+    <button class="btn btn-primary" onclick="updateTable()">
+        Update
+    </button>
+
+</div>
+
+<script>
+
+    function updateTable()
+    {
+
+        var name=document.getElementById("name").value;
+        var email=document.getElementById("email").value;
+        var mobile=document.getElementById("mobile").value;
+        var skills="";
+        if(document.getElementById("html").checked)
+        {
+            skills=skills+"HTML ";
+        }
+        if(document.getElementById("css").checked)
+        {
+            skills=skills+"CSS ";
+        }
+
+        if(document.getElementById("js").checked)
+        {
+            skills=skills+"JavaScript ";
+        }
+
+        if(document.getElementById("java").checked)
+        {
+            skills=skills+"Java ";
+        }
+
+        if(document.getElementById("angular").checked)
+        {
+            skills=skills+"Angular ";
+        }
+
+        document.getElementById("tname").innerHTML=name;
+
+        document.getElementById("temail").innerHTML=email;
+
+        document.getElementById("tmobile").innerHTML=mobile;
+
+        document.getElementById("tskills").innerHTML=skills;
+
+    }
+
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function sayHi(name1,name2,name3 , name4){
+alert("Hi"+name1+" " + name2+" " + " "+name3 +" "+name4)
+    }
+    var arr=["lavi","renji","yuva","vichu"];
+    sayHi(arr[0],arr[1],arr[2]);//traditional one
+    sayHi(...arr);//spread operator , is also used for cloning an array or obj
+    var arr2=["a","b"];
+    sayHi("hello people",...arr2);
+</script>
+</html>

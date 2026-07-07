@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <button onclick="demo()"> click me for magic</button>
+   <div id ="content"></div>
+</body>
+
+<script>
+//     function demo(){
+//   var names=["lavanya","renji","yuva","vishnu","kamya"];
+//   var content="";
+//   for(let i=0;i<names.length;i++){
+//     content+=`<h1> hello ${names[i].toUpperCase()}</h1>`
+//   }
+//     alert(content);
+//     document.getElementById("content").innerHTML=content;
+//     }
+
+
+
+// function demo() {
+//     const names = ["lavanya", "renji", "yuva", "vishnu", "kamya"];
+
+//     document.getElementById("content").innerHTML =
+//         names.map(name => `<h1>Hello ${name.toUpperCase()}</h1>`).join("");
+// }
+
+function demo(){
+  var names=["lavanya","renji","yuva","vishnu","kamya"];
+  var content="<ol>";
+  for(let i=0;i<names.length;i++){
+    content+=`<li> hello ${names[i].toUpperCase()}</li>`
+  }
+  content+="</ol"
+    alert(content);
+    document.getElementById("content").innerHTML=content;
+    }
+
+</script>
+</html>
+
+

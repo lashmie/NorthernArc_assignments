@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ClearInterval</title>
+</head>
+<body>
+<div id="main"></div>
+<button onclick="demo()">START</button>
+<button onclick="demo2()">STOP</button>
+<script>
+    let interval;
+    function demo2(){
+        clearInterval(interval);
+    }
+
+    var i=0;
+    function demo(){
+        var arr=["Lavs","Yuva","Vishnu","Renji"];
+        interval=setInterval(()=> {
+            document.getElementById("main").innerHTML = `<h1>Hello ${arr[i % 4]}!!</h1>`;
+            i++;
+        },1000);
+    }
+</script>
+</body>
+</html>

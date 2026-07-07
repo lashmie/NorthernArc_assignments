@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Navigation</title>
+
+    <style>
+
+        .box{
+            display:inline-block;
+            width:120px;
+            padding:15px;
+            margin:10px;
+            border:1px solid black;
+            text-align:center;
+            cursor:pointer;
+            background-color:white;
+        }
+
+        #content{
+            margin-top:40px;
+            width:500px;
+            height:180px;
+            border:1px solid black;
+            text-align:center;
+            padding-top:60px;
+            font-size:20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div id="home" class="box" onclick="showContent('home')">
+    Home
+</div>
+
+<div id="about" class="box" onclick="showContent('about')">
+    About Us
+</div>
+
+<div id="services" class="box" onclick="showContent('services')">
+    Services
+</div>
+
+<div id="contact" class="box" onclick="showContent('contact')">
+    Contact
+</div>
+
+<div id="content">
+
+    Content will be displayed here for the section you click.
+
+</div>
+
+<script>
+
+    function showContent(name)
+    {
+
+        // Remove highlight
+
+        document.getElementById("home").style.backgroundColor="white";
+
+        document.getElementById("about").style.backgroundColor="white";
+
+        document.getElementById("services").style.backgroundColor="white";
+
+        document.getElementById("contact").style.backgroundColor="white";
+
+
+        // Highlight selected
+
+        document.getElementById(name).style.backgroundColor="yellow";
+
+
+        // Display content
+
+        if(name=="home")
+        {
+            document.getElementById("content").innerHTML="<h2>Home</h2><p>Welcome to our Home Page.</p>";
+        }
+
+        if(name=="about")
+        {
+            document.getElementById("content").innerHTML="<h2>About Us</h2><p>We are learning JavaScript CRUD and DOM concepts.</p>";
+        }
+
+        if(name=="services")
+        {
+            document.getElementById("content").innerHTML="<h2>Services</h2><p>We provide Web Development and Java Training.</p>";
+        }
+
+        if(name=="contact")
+        {
+            document.getElementById("content").innerHTML="<h2>Contact</h2><p>Email : info@gmail.com<br>Phone : 9876543210</p>";
+        }
+
+    }
+
+</script>
+
+</body>
+</html>

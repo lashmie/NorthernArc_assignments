@@ -1,0 +1,176 @@
+<!-- <h2 align="center">Employee Management</h2>
+
+<table align="center">
+
+<tr>
+
+<td>Name</td>
+
+<td>
+<input
+type="text"
+[(ngModel)]="employee.name">
+</td>
+
+</tr>
+
+<tr>
+
+<td>Salary</td>
+
+<td>
+
+<input
+type="number"
+[(ngModel)]="employee.salary">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="2" align="center">
+
+<button (click)="addEmployee()">
+
+Add Employee
+
+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+<br>
+
+<button (click)="sortSalary()">
+
+Salary Ascending
+
+</button>
+
+<button (click)="reverseSort()">
+
+Salary Descending
+
+</button>
+
+<br><br>
+
+<table border="1" width="600">
+
+<tr>
+
+<th>Id</th>
+
+<th>Name</th>
+
+<th>Salary</th>
+
+<th>Delete</th>
+
+</tr>
+
+<tr *ngFor="let e of employees">
+
+<td>{{e.id}}</td>
+
+<td>{{e.name}}</td>
+
+<td>{{e.salary}}</td>
+
+<td>
+
+<button (click)="deleteEmployee(e.id)">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</table> -->
+<h2>Employee Management</h2>
+
+Name
+
+<input
+type="text"
+[(ngModel)]="employee.name">
+
+<br><br>
+
+Salary
+
+<input
+type="number"
+[(ngModel)]="employee.salary">
+
+<br><br>
+
+<button (click)="addEmployee()">
+
+Add Employee
+
+</button>
+
+<br><br>
+
+<button (click)="sortAscending()">
+
+Salary Ascending
+
+</button>
+
+<button (click)="sortDescending()">
+
+Salary Descending
+
+</button>
+
+<br><br>
+
+<table border="1">
+
+<tr>
+
+<th>Id</th>
+
+<th>Name</th>
+
+<th>Salary</th>
+
+<th>Delete</th>
+
+</tr>
+
+@for(emp of employees(); track emp.id){
+
+<tr>
+
+<td>{{emp.id}}</td>
+
+<td>{{emp.name}}</td>
+
+<td>{{emp.salary}}</td>
+
+<td>
+
+<button (click)="deleteEmployee(emp.id)">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+}
+
+</table>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Management</title>
+</head>
+<body>
+
+<h2>Customer Management</h2>
+
+<h3>Add Customer</h3>
+
+<input type="text" id="name" placeholder="Enter Name"><br><br>
+<input type="email" id="email" placeholder="Enter Email"><br><br>
+<input type="text" id="phone" placeholder="Enter Phone"><br><br>
+
+<button onclick="addCustomer()">Add Customer</button>
+
+<hr>
+
+<h3>Get All Customers</h3>
+
+<button onclick="getCustomers()">Load Customers</button>
+
+<div id="customerList"></div>
+
+<hr>
+
+<h3>Search Customer By ID</h3>
+
+<input type="number" id="customerId" placeholder="Enter ID">
+<button onclick="getCustomerById()">Search</button>
+
+<div id="singleCustomer"></div>
+
+<hr>
+
+<h3>Search Customer By Name</h3>
+
+<input type="text" id="searchName" placeholder="Enter Name">
+<button onclick="searchByName()">Search</button>
+
+<div id="searchResult"></div>
+
+<hr>
+
+<h3>Delete Customer</h3>
+
+<input type="number" id="deleteId" placeholder="Enter ID">
+<button onclick="deleteCustomer()">Delete</button>
+
+<script>
+
+const URL = "http://localhost:8080/api/customers";
+
+// Add Customer
+function addCustomer(){
+
+    let customer={
+        name:document.getElementById("name").value,
+        email:document.getElementById("email").value,
+        phone:document.getElementById("phone").value
+    };
+
+    fetch(URL,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(customer)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        alert("Customer Added");
+        console.log(data);
+    });
+
+}
+
+// Get All Customers
+function getCustomers(){
+
+    fetch(URL)
+    .then(res=>res.json())
+    .then(data=>{
+
+        let output="<table border='1'>";
+        output+="<tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th></tr>";
+
+        data.forEach(c=>{
+            output+="<tr>";
+            output+="<td>"+c.id+"</td>";
+            output+="<td>"+c.name+"</td>";
+            output+="<td>"+c.email+"</td>";
+            output+="<td>"+c.phone+"</td>";
+            output+="</tr>";
+        });
+
+        output+="</table>";
+
+        document.getElementById("customerList").innerHTML=output;
+
+    });
+
+}
+
+// Get Customer By ID
+function getCustomerById(){
+
+    let id=document.getElementById("customerId").value;
+
+    fetch(URL+"/"+id)
+    .then(res=>res.json())
+    .then(c=>{
+
+        document.getElementById("singleCustomer").innerHTML=
+        "ID : "+c.id+"<br>"+
+        "Name : "+c.name+"<br>"+
+        "Email : "+c.email+"<br>"+
+        "Phone : "+c.phone;
+
+    });
+
+}
+
+// Search By Name
+function searchByName(){
+
+    let name=document.getElementById("searchName").value;
+
+    fetch(URL+"/search?name="+name)
+    .then(res=>res.json())
+    .then(data=>{
+
+        let output="";
+
+        data.forEach(c=>{
+
+            output+="ID : "+c.id+
+            " Name : "+c.name+
+            " Email : "+c.email+
+            " Phone : "+c.phone+"<br><br>";
+
+        });
+
+        document.getElementById("searchResult").innerHTML=output;
+
+    });
+
+}
+
+// Delete Customer
+function deleteCustomer(){
+
+    let id=document.getElementById("deleteId").value;
+
+    fetch(URL+"/"+id,{
+        method:"DELETE"
+    })
+    .then(()=>{
+        alert("Customer Deleted");
+    });
+
+}
+
+</script>
+
+</body>
+</html>

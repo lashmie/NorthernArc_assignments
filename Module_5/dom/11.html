@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id ="txtName">
+    <button onclick ="add()">Add</button>
+    <div id ="tableData"></div>
+
+<script>
+    var names=[];
+    function drawTable(){
+        var content =`<table border="1">
+            <th>S.No</th>
+            <th>Name</th>
+            <tr>`;
+    
+    for(var i=0;i<names.length;i++){
+        content+=`<tr>
+            <td>${i+1}</td>
+            <td>${names[i].name.toUpperCase()}</td>
+            </tr>`;
+    }
+    content+="</table>"
+    document.getElementById("tableData").innerHTML=content;
+    }
+function add(){
+    var newName=document.getElementById("txtName").value();
+    if(newName.trim()!=""){
+        names.push(newName);
+        drawTable();
+    }
+}
+
+
+
+
+function deleteName(id){
+
+    fetch("http://localhost:8080/api/names/" + id,{
+        method:"DELETE"
+    })
+    .then(response => response.text())
+    .then(message => {
+
+        alert(message);
+
+        getAll();     // Reload the table
+
+    })
+    .catch(err => console.log(err));
+
+}
+
+
+function getAll(){
+    fetch("http://localhost:8080/api/names")
+
+	.then((response)=>{
+
+	return response.json();
+
+	})
+
+	.then(data =>{
+
+	console.log(data);
+
+	names= data;
+
+	drawTable();
+
+	})
+
+	.catch(err=>{
+
+	console.log("There was some problem in contacting the server: "+err)
+
+	});
+ 
+}
+window.onload=function(){
+    getAll();
+    deleteName();
+}
+</script>
+
+</body>
+
+</html>

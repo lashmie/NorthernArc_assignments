@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ArrayOfObjects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .action-btn {
+            color: white;
+            background-color: black;
+            border: 2px outset grey;
+            font-size: 16px;
+            padding: 8px 12px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        table {
+            margin-top: 16px;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 760px;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body onload="drawtable()">
+<input id="nameInput" type="text" placeholder="Enter full name" class="action-btn" style="background-color:white;color:black;cursor:text;">
+<button class="action-btn" onclick="add()">Add</button>
+<button class="action-btn" onclick="sortdemo()">Sort</button>
+<button class="action-btn" onclick="reversesortdemo()">Reverse Sort</button>
+<div id="content"></div>
+</body>
+<script>
+    var people = [
+        { firstName: "Lavanya", lastName: "Elavarasan" },
+        { firstName: "Yuva", lastName: "Chitti" },
+        { firstName: "Vishnu", lastName: "Sir" },
+        { firstName: "Harsh", lastName: "Bharti" }
+    ];
+
+    function add() {
+        var nameInput = document.getElementById("nameInput");
+        var fullName = nameInput.value.trim();
+
+        if (fullName === "") {
+            alert("Please enter a name.");
+            return;
+        }
+
+        var parts = fullName.split(" ");
+        var firstName = parts[0];
+        var lastName = parts.slice(1).join(" ");
+
+        people.unshift({ firstName: firstName, lastName: lastName });
+        nameInput.value = "";
+        drawtable();
+    }
+
+    function sortdemo() {
+        people.sort(function (a, b) {
+            return (a.firstName + " " + a.lastName).localeCompare(b.firstName + " " + b.lastName);
+        });
+        drawtable();
+    }
+
+    function reversesortdemo() {
+        people.sort(function (a, b) {
+            return (b.firstName + " " + b.lastName).localeCompare(a.firstName + " " + a.lastName);
+        });
+        drawtable();
+    }
+
+    function remove(indexToRemove) {
+        people = people.filter(function (_, index) {
+            return index !== indexToRemove;
+        });
+        drawtable();
+    }
+
+    function update(i) {
+        var nameInput = document.getElementById("nameInput");
+        var updatedFullName = nameInput.value.trim();
+        if (updatedFullName === "") {
+            alert("Please enter a valid name.");
+            return;
+        }
+
+        var parts = updatedFullName.split(" ");
+        people[i] = {
+            firstName: parts[0],
+            lastName: parts.slice(1).join(" ")
+        };
+        nameInput.value = "";
+        drawtable();
+    }
+
+    function drawtable() {
+        var rows = people
+            .map(function (person, index) {
+                return "<tr>" +
+                    "<td>" + (index + 1) + "</td>" +
+                    "<td>" + person.firstName + "</td>" +
+                    "<td>" + person.lastName + "</td>" +
+                    "<td>" +
+                    "<button class='action-btn' onclick=\"update(" + index + ")\">Update</button>" +
+                    "<button class='action-btn' onclick=\"remove(" + index + ")\">Remove</button>" +
+                    "</td>" +
+                    "</tr>";
+            })
+            .join("");
+
+        if (rows === "") {
+            rows = "<tr><td colspan='4'>No people available</td></tr>";
+        }
+
+        document.getElementById("content").innerHTML =
+            "<table>" +
+            "<tr><th>S.No</th><th>First Name</th><th>Last Name</th><th>Action</th></tr>" +
+            rows +
+            "</table>";
+    }
+
+</script>
+</html>

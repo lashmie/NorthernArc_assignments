@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Second Document</title>
+</head>
+<body>
+
+<form action="demo.asp" name="registration">
+  <table>
+    <tr style="color:blue;background-color:salmon;font-size:50px;text-decoration:underline">
+      <td>Registration Form</td>
+    </tr>
+    <tr>
+      <td >Username:</td>
+      <td>
+        <input type="text" name="username" placeholder="Enter username"/>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Password:</td>
+      <td>
+        <input type="password" name="password" placeholder="Enter password"/>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Gender:</td>
+      <td>
+        <input type="radio" name="gender" value="Female"/> Female
+        <input type="radio" name="gender" value="Male"/> Male
+      </td>
+    </tr>
+
+    <tr>
+      <td>Skills:</td>
+      <td>
+        <input type="checkbox" name="skills" value="HTML"/> HTML
+        <input type="checkbox" name="skills" value="CSS"/> CSS
+        <input type="checkbox" name="skills" value="Javascript"/> JS
+      </td>
+    </tr>
+
+    <!-- Text Area -->
+    <tr>
+      <td>Address:</td>
+      <td>
+        <textarea name="address" rows="4" cols="30"
+                  placeholder="Enter your address"></textarea>
+      </td>
+    </tr>
+
+    <!-- Dropdown -->
+    <tr>
+      <td>City:</td>
+      <td>
+        <select name="city">
+          <option>Chennai</option>
+          <option>Bangalore</option>
+          <option>Hyderabad</option>
+          <option>Mumbai</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>
+        <input type="submit" name="submit" value="Register Me"/>
+      </td>
+    </tr>
+  </table>
+</form>
+
+</body>
+</html>

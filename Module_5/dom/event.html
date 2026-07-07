@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- body->onload
+onclick
+onmouseout 
+onmouseover
+onfocus
+onblur
+textfields
+password
+text area:onkey onkeypress 
+form->onclick -->
+    <button onclick="demo()"> click me for magic</button>
+    <!-- <h1 id="lavanya">hello india  </h1> -->
+    <h1 onmouseover="hover()">hello galaxy</h1>
+
+</body>
+<script>
+    function demo(){
+        var val=document.getElementById("lavanya");
+        val.style.backgroundColor="red";
+    
+    }
+ function hover() {
+    var val2 = document.getElementsByTagName("h1");
+
+    val2[0].style.textDecoration = "underline";
+    val2[0].style.backgroundColor = "rgb(255,0,0)";
+}
+</script>
+</html>
+
+

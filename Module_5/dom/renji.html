@@ -1,0 +1,32 @@
+<script>
+    // function demo() {
+    //     var names = ["Lavanya Elavarasan", "Yuva Chitti", "Vishnu Sir", "Harsh Bharti"];
+    //     var content = "<ol>" +
+    //         names
+    //             .sort()
+    //             .map(function(name) {
+    //                 return "<li>Hello " + name.toUpperCase() + ", Study Well</li>";
+    //             })
+    //             .join("")
+    //         + "</ol>";
+    //     document.getElementById("content").innerHTML = content;
+    // }
+        function demo() {
+        var names = ["Lavanya Elavarasan", "Yuva Chitti", "Vishnu Sir", "Harsh Bharti"];
+        var content = "<table border='1'>" +
+        "<tr><th>S.No</th><th>First Name</th><th>Last Name</th></tr>" +
+        names
+        .sort()
+        .map(function(name, index) {
+        var parts = name.split(" ");
+        return "<tr><td>" + (index + 1) +
+        "</td><td>" + parts[0] +
+        "</td><td>" + parts[1] +
+        "</td></tr>";
+    })
+        .join("")
+        + "</table>";
+
+        document.getElementById("content").innerHTML = content;
+    }
+</script>

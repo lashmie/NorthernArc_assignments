@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>First Document</title>
+<style>
+#content{
+color:red;
+font-size:50px;
+}
+button,input{
+color:white;
+background-color:black;
+border:4px outset grey;
+font-size:50px;
+}
+button:hover{
+border:4px inset grey;
+}
+</style>
+</head>
+<body onload="drawlist()">
+<input type="text" id="additem" placeholder="Enter name"/>
+<button onclick="add()">Add</button>
+<button onclick="sortdemo()">Sort</button>
+<button onclick="rsortdemo()">Reverse Sort</button>
+
+<div id="content"></div>
+</body>
+<script>
+names=[];
+
+
+//
+function removeEmployee(id){
+
+    fetch("http://localhost:8080/api/employees/" + id, {
+        method: "DELETE"
+    })
+    .then(response => {
+        if(response.ok){
+            alert("Employee Deleted Successfully");
+            getAll();   // Reload the list
+        }
+        else{
+            alert("Delete Failed");
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+}
+
+
+// function drawlist(){
+// var content="<ol>";
+// for(let i=0;i<names.length;i++){
+// content= content+`<li>${names[i]["name"].toUpperCase()}
+// <button onclick="remove('${names[i]}')">remove</button>
+// <button onclick="update(${i})">update</button></li>
+// `;
+// }
+// content+="</ol>";
+// //alert(content);
+// document.getElementById("content").innerHTML=content;
+// }
+function drawlist(){
+
+    var content="<ol>";
+
+    for(let i=0;i<names.length;i++){
+
+        content += `
+        <li>
+            ${names[i].name.toUpperCase()}
+
+            <button onclick="removeEmployee(${names[i].id})">
+                Remove
+            </button>
+<button onclick="update(${names[i].id})">update</button>
+
+        </li>`;
+    }
+
+    content += "</ol>";
+
+    document.getElementById("content").innerHTML = content;
+}
+
+
+
+window.onload=function (){
+getAll();
+}
+function getAll(){
+fetch("http://localhost:8080/api/employees",{method:"GET"})
+.then((response)=>{
+return response.json();
+})
+.then(data =>{
+console.log(data);
+names= data;
+drawlist();
+})
+.catch(err=>{
+console.log("There was some problem in contacting the server: "+err)
+});
+}
+
+//update employee
+function update(id) {
+
+    let employee = names.find(emp => emp.id == id);
+
+    employee.name = prompt("Enter Name", employee.name);
+    employee.salary = prompt("Enter Salary", employee.salary);
+
+    fetch(`http://localhost:8080/api/employees/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(employee)
+    })
+        .then(response => {
+            if(response.ok){
+                alert("Updated Successfully");
+                drawlist();
+            }
+        });
+}
+</script>
+</html>

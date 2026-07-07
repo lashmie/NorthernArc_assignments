@@ -1,0 +1,62 @@
+<html>
+<head>
+    <title> Unique Selector </title>
+</head>
+<body>
+
+    <div id="content"></div>
+    <button onclick = "drawlist()"> Click me to get object </button>
+    <button onclick = "rsortDemo()"> To ReverseOrder </button>
+    <style>
+    #content{
+        color:rgb(81, 23, 23);
+        font-size: 50px;
+    }
+    button{
+        color:white;
+        background-color: black;
+        border:4px outset grey;
+        font-size: 50px;
+    }
+</style>
+</body>
+<script>
+ 
+  var names = ["Sachin" , "Virat", "Dhoni", "Rohit"];
+ 
+    function drawlist(){
+        var content = "<ol>";
+        for(var i = 0; i < names.length; i++){
+            content += `<li> ${names[i]} <button onclick="removePlayer('${names[i]}')"> Remove </button> </li>`;
+           
+        }
+        content += "</ol>";
+        document.getElementById("content").innerHTML = content;
+    }
+ 
+        function sortdemo(){
+        names.sort();
+        }
+ 
+ 
+        function removePlayer(player){
+            names = names.filter(name => name !== player);
+            drawlist();
+        }
+ 
+        // function rsortDemo(){
+        //     names.sort().reverse();
+        //     drawlist();
+        // }
+        
+// function rsort(){
+//     names.sort((a,b)=>{
+//         if(a==b) return 0;
+// if(a>b)return -1;
+// else return +1;
+// )};
+// drawlist();
+// }
+    </script>
+
+</html>

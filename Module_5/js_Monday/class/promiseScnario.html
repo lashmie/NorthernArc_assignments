@@ -1,0 +1,26 @@
+<!-- //promise is either resolved or reglected that.. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="myPromise()">start</button>
+</body>
+
+<script>
+    let answer;
+    let promiseResult=[" happy","sad"]
+    //asynchrounous
+    function myPromise(){
+console.log("How are u?");
+setTimeout(()=>{
+    answer=Math.round(Math.random());
+    alert(promiseResult[answer])
+},Math.random()*5*1000);
+console.log("Exiting!!!..")
+    }
+</script>
+</html>

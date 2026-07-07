@@ -1,0 +1,48 @@
+fetch("http://localhost:8080/employees")
+
+	.then((response)=>{
+
+	return response.json();
+
+	})
+
+	.then(data =>{
+
+	console.log(data);
+
+	names= data;
+
+	drawlist();
+
+	})
+
+	.catch(err=>{
+
+	console.log("There was some problem in contacting the server: "+err)
+
+	});
+ 
+@Bean
+
+    public WebMvcConfigurer corsConfigurer() {
+
+        return new WebMvcConfigurer() {
+
+            @Override
+
+            public void addCorsMappings(CorsRegistry registry) {
+
+                registry.addMapping("/**") // Applies to all endpoints
+
+                        .allowedOrigins("*") // Allow any origin (or replace with your specific frontend URL)
+
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+
+                        .allowedHeaders("*");
+
+            }
+
+        };
+
+    }
+ 
