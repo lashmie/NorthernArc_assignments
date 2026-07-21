@@ -1,0 +1,210 @@
+/* =========================================================
+   Global styles — ScanManager
+   Bootstrap 5 is loaded via CDN in index.html.
+   These styles layer a clean, modern theme on top of it.
+   ========================================================= */
+
+:root {
+  /* Colors */
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-soft: #e6efff;
+
+  --bg: #f4f6fb;
+  --bg-muted: #f1f3f9;
+  --surface: #ffffff;
+  --border: #e5e8f0;
+
+  --text: #1a2233;
+  --text-muted: #6b7280;
+
+  --danger: #dc2626;
+  --danger-soft: #fde8e8;
+  --warning: #d97706;
+  --warning-dark: #b45309;
+  --warning-soft: #fef3e2;
+  --success: #16a34a;
+  --success-dark: #15803d;
+  --success-soft: #e4f7ec;
+  --info: #0891b2;
+  --info-soft: #e0f5fb;
+
+  /* Radius & shadow */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utility soft backgrounds for icons */
+.bg-primary-soft { background: var(--primary-soft) !important; }
+.bg-danger-soft { background: var(--danger-soft) !important; }
+.bg-warning-soft { background: var(--warning-soft) !important; }
+.bg-info-soft { background: var(--info-soft) !important; }
+.bg-success-soft { background: var(--success-soft) !important; }
+
+/* Page headings */
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0 0 0.25rem;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Cards */
+.app-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.app-card .card-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.25rem;
+}
+
+/* Tables */
+.app-table {
+  --bs-table-bg: transparent;
+  margin: 0;
+}
+
+.app-table thead th {
+  background: var(--bg-muted);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 1rem;
+  white-space: nowrap;
+}
+
+.app-table tbody td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  color: var(--text);
+}
+
+.app-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.app-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.app-table tbody tr:hover {
+  background: var(--primary-soft);
+}
+
+.badge-id {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+/* Buttons — theme Bootstrap primary */
+.btn {
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary-dark);
+  --bs-btn-hover-border-color: var(--primary-dark);
+  --bs-btn-active-bg: var(--primary-dark);
+  --bs-btn-active-border-color: var(--primary-dark);
+  --bs-btn-disabled-bg: var(--primary);
+  --bs-btn-disabled-border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary);
+  --bs-btn-hover-border-color: var(--primary);
+  --bs-btn-active-bg: var(--primary-dark);
+}
+
+/* Forms */
+.form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.form-control,
+.form-select {
+  border-radius: var(--radius-sm);
+  border-color: var(--border);
+  padding: 0.6rem 0.85rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem var(--primary-soft);
+}
+
+.input-group-text {
+  background: var(--bg-muted);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+/* Alerts */
+.alert {
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}

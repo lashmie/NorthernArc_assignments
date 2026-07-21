@@ -1,0 +1,194 @@
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <span class="hero-badge"><i class="bi bi-stars me-1"></i>Website Scan Dashboard</span>
+        <h1 class="hero-title">Monitor your website scans in one clean place</h1>
+        <p class="hero-subtitle">
+          Track pages crawled, broken links and missing images across all your domains.
+          Add, search and review scans with a fast, modern interface.
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+          <a routerLink="/scans" class="btn btn-primary btn-lg">
+            <i class="bi bi-table me-2"></i>View All Scans
+          </a>
+          <a routerLink="/scans/add" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-plus-circle me-2"></i>Add New Scan
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-block">
+        <div class="hero-illustration">
+          <i class="bi bi-globe2"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-4">
+  <!-- System / Backend status -->
+  <div class="status-card">
+    <h2 class="status-heading"><i class="bi bi-activity me-2"></i>System Status</h2>
+
+    @if (statusLoading()) {
+      <app-loading message="Checking backend status..." />
+    } @else {
+      <div class="status-grid">
+        <div class="status-item">
+          <span class="status-label">Backend Status</span>
+          <span class="status-value">
+            <span class="dot" [class.dot-green]="healthOnline()" [class.dot-red]="!healthOnline()"></span>
+            {{ healthOnline() ? 'Online' : 'Offline' }}
+          </span>
+        </div>
+
+        <div class="status-item">
+          <span class="status-label">Ready Status</span>
+          <span class="status-value">
+            <span class="dot" [class.dot-green]="ready()" [class.dot-red]="!ready()"></span>
+            {{ ready() ? 'Ready' : 'Not Ready' }}
+          </span>
+        </div>
+      </div>
+
+      @if (statusError()) {
+        <p class="status-message">{{ statusError() }}</p>
+      }
+
+      <button type="button" class="status-refresh" (click)="checkBackendStatus()">
+        <i class="bi bi-arrow-clockwise me-1"></i>Refresh status
+      </button>
+    }
+  </div>
+
+  @if (loading()) {
+    <app-loading message="Loading dashboard..." />
+  } @else if (error()) {
+    <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <span>{{ error() }}</span>
+      <button class="btn btn-sm btn-outline-danger ms-auto" (click)="loadScans()">Retry</button>
+    </div>
+  } @else {
+    <!-- Stat cards -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon bg-primary-soft text-primary"><i class="bi bi-clipboard-data"></i></div>
+          <div>
+            <p class="stat-label">Total Scans</p>
+            <p class="stat-value">{{ totalScans() }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon bg-info-soft text-info"><i class="bi bi-file-earmark-text"></i></div>
+          <div>
+            <p class="stat-label">Total Pages</p>
+            <p class="stat-value">{{ totalPages() }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon bg-danger-soft text-danger"><i class="bi bi-link-45deg"></i></div>
+          <div>
+            <p class="stat-label">Broken Links</p>
+            <p class="stat-value">{{ totalBrokenLinks() }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon bg-warning-soft text-warning"><i class="bi bi-image"></i></div>
+          <div>
+            <p class="stat-label">Missing Images</p>
+            <p class="stat-value">{{ totalMissingImages() }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <a routerLink="/scans" class="action-card">
+          <div class="action-icon"><i class="bi bi-table"></i></div>
+          <div>
+            <h3 class="action-title">All Scans</h3>
+            <p class="action-text">Browse and manage every scan.</p>
+          </div>
+          <i class="bi bi-chevron-right action-arrow"></i>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a routerLink="/scans/add" class="action-card">
+          <div class="action-icon"><i class="bi bi-plus-circle"></i></div>
+          <div>
+            <h3 class="action-title">Add Scan</h3>
+            <p class="action-text">Record a new website scan.</p>
+          </div>
+          <i class="bi bi-chevron-right action-arrow"></i>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a routerLink="/scans/search" class="action-card">
+          <div class="action-icon"><i class="bi bi-search"></i></div>
+          <div>
+            <h3 class="action-title">Search Scans</h3>
+            <p class="action-text">Find scans by domain name.</p>
+          </div>
+          <i class="bi bi-chevron-right action-arrow"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Recent scans -->
+    <div class="card app-card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h2 class="section-title mb-0"><i class="bi bi-clock-history me-2"></i>Recent Scans</h2>
+        <a routerLink="/scans" class="btn btn-sm btn-outline-primary">View all</a>
+      </div>
+      <div class="card-body p-0">
+        @if (recentScans().length === 0) {
+          <app-empty-state
+            icon="bi-inbox"
+            title="No scans yet"
+            message="Add your first scan to see it here."
+          >
+            <a routerLink="/scans/add" class="btn btn-primary mt-2">
+              <i class="bi bi-plus-circle me-2"></i>Add Scan
+            </a>
+          </app-empty-state>
+        } @else {
+          <div class="table-responsive">
+            <table class="table app-table mb-0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Domain Name</th>
+                  <th class="text-center">Pages</th>
+                  <th class="text-center">Broken Links</th>
+                  <th class="text-center">Missing Images</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (scan of recentScans(); track scan.id) {
+                  <tr>
+                    <td><span class="badge-id">#{{ scan.id }}</span></td>
+                    <td class="fw-semibold">{{ scan.domainName }}</td>
+                    <td class="text-center">{{ scan.numPages }}</td>
+                    <td class="text-center">{{ scan.numBrokenLinks }}</td>
+                    <td class="text-center">{{ scan.numMissingImages }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

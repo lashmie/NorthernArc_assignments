@@ -1,0 +1,92 @@
+<div class="container py-4">
+  <div class="page-head mb-4">
+    <a routerLink="/scans" class="back-link"><i class="bi bi-arrow-left me-1"></i>Back to scans</a>
+    <h1 class="page-title"><i class="bi bi-file-earmark-text me-2"></i>Scan Details</h1>
+    <p class="page-subtitle mb-0">Read-only view of the selected scan.</p>
+  </div>
+
+  @if (loading()) {
+    <app-loading message="Loading scan..." />
+  } @else if (error()) {
+    <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <span>{{ error() }}</span>
+      <a routerLink="/scans" class="btn btn-sm btn-outline-danger ms-auto">Back to list</a>
+    </div>
+  } @else if (scan(); as s) {
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card app-card mb-3">
+          <div class="card-body p-4">
+            <div class="detail-header">
+              <div class="detail-avatar"><i class="bi bi-globe2"></i></div>
+              <div>
+                <h2 class="detail-domain">{{ s.domainName }}</h2>
+                <span class="badge-id">Scan #{{ s.id }}</span>
+                @if (s.deleted) {
+                  <span class="pill pill-danger ms-2">Deleted</span>
+                } @else {
+                  <span class="pill pill-active ms-2">Active</span>
+                }
+              </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <div class="detail-item">
+                  <span class="detail-label"><i class="bi bi-hash me-1"></i>ID</span>
+                  <span class="detail-value">{{ s.id }}</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="detail-item">
+                  <span class="detail-label"><i class="bi bi-globe me-1"></i>Domain Name</span>
+                  <span class="detail-value">{{ s.domainName }}</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="detail-item">
+                  <span class="detail-label"><i class="bi bi-file-earmark-text me-1"></i>Number of Pages</span>
+                  <span class="detail-value">{{ s.numPages }}</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="detail-item">
+                  <span class="detail-label"><i class="bi bi-link-45deg me-1"></i>Broken Links</span>
+                  <span class="detail-value">{{ s.numBrokenLinks }}</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="detail-item">
+                  <span class="detail-label"><i class="bi bi-image me-1"></i>Missing Images</span>
+                  <span class="detail-value">{{ s.numMissingImages }}</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="detail-item">
+                  <span class="detail-label"><i class="bi bi-trash me-1"></i>Deleted</span>
+                  <span class="detail-value">{{ s.deleted ? 'Yes' : 'No' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+          <a routerLink="/scans" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>Back to List
+          </a>
+          <button type="button" class="btn btn-outline-danger" (click)="deleteScan()" [disabled]="deleting()">
+            @if (deleting()) {
+              <span class="spinner-border spinner-border-sm me-2"></span>Deleting...
+            } @else {
+              <i class="bi bi-trash me-2"></i>Delete Scan
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
