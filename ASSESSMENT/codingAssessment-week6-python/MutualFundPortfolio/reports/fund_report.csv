@@ -1,0 +1,6 @@
+FundID,FundName,Category,ExpenseRatio,Return
+F102,Bluechip Equity Fund,Equity,1.1,3.466666666666659
+F104,Corporate Bond Fund,Debt,0.65,3.396226415094345
+F101,Alpha Growth Fund,Equity,1.2,2.938775510204077
+F103,Balanced Advantage Fund,Hybrid,0.95,2.2565320665083033
+F105,Small Cap Opportunities,Equity,1.45,2.186666666666661
