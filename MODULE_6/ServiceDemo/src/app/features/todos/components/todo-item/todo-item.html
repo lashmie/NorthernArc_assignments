@@ -1,0 +1,55 @@
+<!-- <p>todo-item works!</p> -->
+ <div class="card shadow m-2">
+ 
+    <div class="card-body">
+ 
+        <h4>{{todo.title}}</h4>
+ 
+        <p>
+<b>Description:</b>
+
+            {{todo.description}}
+</p>
+ 
+        <p>
+<b>Status:</b>
+ 
+            <span
+
+            [ngClass]="todo.completed ? 'text-success':'text-danger'">
+ 
+                {{todo.completed ? 'Completed' : 'Pending'}}
+ 
+            </span>
+ 
+        </p>
+ 
+        <button
+
+        class="btn btn-danger w-100"
+
+        (click)="todoService.deleteTodo(todo.id)">
+
+            Remove
+</button>
+ 
+    </div>
+
+    <button
+class="btn btn-warning"
+(click)="showUpdate = !showUpdate">
+
+Update
+
+</button>
+
+@if(showUpdate){
+
+<app-update-todo
+[todo]="todo">
+</app-update-todo>
+
+}
+ 
+</div>
+ 

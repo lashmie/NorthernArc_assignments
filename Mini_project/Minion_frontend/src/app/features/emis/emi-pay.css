@@ -1,0 +1,9 @@
+.page-head { margin-bottom: 1.5rem; }
+.kv { list-style: none; margin: 0; padding: 0; }
+.kv li {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding: .6rem 0; border-bottom: 1px solid var(--line);
+  font-size: .9rem;
+}
+.kv li:last-child { border-bottom: none; }
+.kv li span:first-child { color: var(--ink-soft); }

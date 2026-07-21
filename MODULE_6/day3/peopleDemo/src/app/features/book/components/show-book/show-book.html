@@ -1,0 +1,9 @@
+// we are going to show the books in list and we are going to use the book service to get the books from the list and display them in the cardlayout
+// be side the book we can remove the book from the list only..
+
+<ul>
+    @for(book of bookservice.getBooks() | async;track book.id) {
+        <li>{{book.id}}: {{book.title}} by {{book.author}}</li>
+        <button (click)="bookservice.removeBook(book.id)">Remove</button>
+    }
+</ul>

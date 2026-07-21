@@ -1,0 +1,10 @@
+.page-head { margin-bottom: 1.5rem; }
+.center { display: grid; place-items: center; padding: 2rem; }
+.section { margin-top: 1.25rem; }
+.kv { list-style: none; margin: 0; padding: 0; }
+.kv li {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: .6rem 0; border-bottom: 1px solid var(--line); font-size: .9rem;
+}
+.kv li:last-child { border-bottom: none; }
+.kv li span { color: var(--ink-soft); }

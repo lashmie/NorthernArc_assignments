@@ -1,0 +1,49 @@
+.employee-card {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 0.8rem 1rem;
+	align-items: center;
+	padding: 1rem;
+	border: 1px solid #dbe5ee;
+	border-radius: 0.8rem;
+	background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+	box-shadow: 0 8px 20px rgba(4, 43, 73, 0.08);
+}
+
+.employee-main {
+	min-width: 0;
+}
+
+.employee-name {
+	margin: 0;
+	font-size: 1.05rem;
+	color: #0f172a;
+}
+
+.employee-salary {
+	margin: 0.25rem 0 0;
+	color: #334155;
+	font-size: 0.92rem;
+}
+
+.remove-btn {
+	border: none;
+	border-radius: 0.6rem;
+	padding: 0.55rem 0.85rem;
+	font-weight: 600;
+	background: #ef4444;
+	color: #fff;
+	cursor: pointer;
+}
+
+.remove-btn:disabled {
+	opacity: 0.65;
+	cursor: not-allowed;
+}
+
+.error-msg {
+	grid-column: 1 / -1;
+	margin: 0;
+	color: #b91c1c;
+	font-size: 0.9rem;
+}

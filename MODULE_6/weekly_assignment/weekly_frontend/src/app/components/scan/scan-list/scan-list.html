@@ -1,0 +1,103 @@
+<div class="container py-4">
+  <div class="page-head d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+    <div>
+      <h1 class="page-title"><i class="bi bi-table me-2"></i>All Scans</h1>
+      <p class="page-subtitle mb-0">Manage every website scan in your system.</p>
+    </div>
+    <a routerLink="/scans/add" class="btn btn-primary">
+      <i class="bi bi-plus-circle me-2"></i>Add Scan
+    </a>
+  </div>
+
+  @if (success()) {
+    <div class="alert alert-success d-flex align-items-center gap-2" role="alert">
+      <i class="bi bi-check-circle-fill"></i>
+      <span>{{ success() }}</span>
+      <button type="button" class="btn-close ms-auto" aria-label="Close" (click)="success.set(null)"></button>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <span>{{ error() }}</span>
+      <button class="btn btn-sm btn-outline-danger ms-auto" (click)="loadScans()">Retry</button>
+    </div>
+  }
+
+  <div class="card app-card">
+    <div class="card-body p-0">
+      @if (loading()) {
+        <app-loading message="Loading scans..." />
+      } @else if (!hasScans()) {
+        <app-empty-state
+          icon="bi-inbox"
+          title="No scans found"
+          message="You haven't added any scans yet. Create your first one to get started."
+        >
+          <a routerLink="/scans/add" class="btn btn-primary mt-2">
+            <i class="bi bi-plus-circle me-2"></i>Add Scan
+          </a>
+        </app-empty-state>
+      } @else {
+        <div class="table-responsive">
+          <table class="table app-table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Domain Name</th>
+                <th class="text-center">Pages</th>
+                <th class="text-center">Broken Links</th>
+                <th class="text-center">Missing Images</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (scan of scans(); track scan.id) {
+                <tr>
+                  <td><span class="badge-id">#{{ scan.id }}</span></td>
+                  <td class="fw-semibold">{{ scan.domainName }}</td>
+                  <td class="text-center">{{ scan.numPages }}</td>
+                  <td class="text-center">
+                    <span class="pill" [class.pill-danger]="scan.numBrokenLinks > 0">
+                      {{ scan.numBrokenLinks }}
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <span class="pill" [class.pill-warning]="scan.numMissingImages > 0">
+                      {{ scan.numMissingImages }}
+                    </span>
+                  </td>
+                  <td class="text-end">
+                    <div class="d-inline-flex gap-2">
+                      <a
+                        [routerLink]="['/scans', scan.id]"
+                        class="btn btn-sm btn-outline-primary"
+                        title="View details"
+                      >
+                        <i class="bi bi-eye"></i><span class="d-none d-md-inline ms-1">View</span>
+                      </a>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-danger"
+                        title="Delete scan"
+                        [disabled]="deletingId() === scan.id"
+                        (click)="deleteScan(scan)"
+                      >
+                        @if (deletingId() === scan.id) {
+                          <span class="spinner-border spinner-border-sm"></span>
+                        } @else {
+                          <i class="bi bi-trash"></i><span class="d-none d-md-inline ms-1">Delete</span>
+                        }
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </div>
+</div>

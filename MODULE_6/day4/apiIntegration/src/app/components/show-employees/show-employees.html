@@ -1,0 +1,15 @@
+@if (pstatus().loading) {
+  <p>Loading employee details...</p>
+}
+@if (pstatus().error) {
+  <p class="error">{{ pstatus().error }}</p>
+}
+@if (pstatus().success) {
+  @if (employeeService.employees().length === 0) {
+    <p>No employees found.</p>
+  } @else {
+    @for (employee of employeeService.employees(); track employee.id) {
+      <app-show-employee [employee]="employee"></app-show-employee>
+    }
+  }
+}

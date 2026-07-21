@@ -1,0 +1,205 @@
+<div class="container py-4">
+  <div class="page-head mb-4">
+    <h1 class="page-title"><i class="bi bi-search me-2"></i>Search Scans</h1>
+    <p class="page-subtitle mb-0">Find scans by domain name or look one up directly by ID.</p>
+  </div>
+
+  <!-- Find / Delete by ID -->
+  <div class="card app-card mb-4">
+    <div class="card-header">
+      <h2 class="section-title mb-0"><i class="bi bi-hash me-1"></i>Find by ID</h2>
+    </div>
+    <div class="card-body p-4">
+      <form (ngSubmit)="findById()">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-8">
+            <label class="form-label" for="scanId">Scan ID</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-hash"></i></span>
+              <input
+                id="scanId"
+                type="number"
+                min="1"
+                class="form-control"
+                placeholder="Enter a scan ID..."
+                name="scanId"
+                [(ngModel)]="scanId"
+              />
+            </div>
+          </div>
+          <div class="col-md-4 d-grid">
+            <button type="submit" class="btn btn-primary" [disabled]="idLoading()">
+              @if (idLoading()) {
+                <span class="spinner-border spinner-border-sm"></span>
+              } @else {
+                <i class="bi bi-search me-1"></i>Find
+              }
+            </button>
+          </div>
+        </div>
+      </form>
+
+      @if (idSuccess()) {
+        <div class="alert alert-success d-flex align-items-center gap-2 mt-3 mb-0" role="alert">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>{{ idSuccess() }}</span>
+        </div>
+      }
+
+      @if (idLoading()) {
+        <app-loading message="Looking up scan..." />
+      } @else if (idError()) {
+        <div class="alert alert-danger d-flex align-items-center gap-2 mt-3 mb-0" role="alert">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+          <span>{{ idError() }}</span>
+        </div>
+      } @else if (idScan(); as s) {
+        <div class="id-result mt-3">
+          <div class="id-result-info">
+            <span class="badge-id">#{{ s.id }}</span>
+            <div>
+              <p class="id-domain">{{ s.domainName }}</p>
+              <p class="id-meta">
+                {{ s.numPages }} pages · {{ s.numBrokenLinks }} broken links ·
+                {{ s.numMissingImages }} missing images
+              </p>
+            </div>
+          </div>
+          <div class="id-actions">
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="viewById()">
+              <i class="bi bi-eye me-1"></i>View
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              [disabled]="idDeleting()"
+              (click)="deleteById()"
+            >
+              @if (idDeleting()) {
+                <span class="spinner-border spinner-border-sm me-1"></span>Deleting...
+              } @else {
+                <i class="bi bi-trash me-1"></i>Delete
+              }
+            </button>
+          </div>
+        </div>
+      } @else if (idSearched()) {
+        <div class="alert alert-info d-flex align-items-center gap-2 mt-3 mb-0" role="alert">
+          <i class="bi bi-info-circle-fill"></i>
+          <span>No scan to display. Enter an ID and click Find.</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="card app-card mb-4">
+    <div class="card-header">
+      <h2 class="section-title mb-0"><i class="bi bi-globe me-1"></i>Search by Domain</h2>
+    </div>
+    <div class="card-body p-4">
+      <form (ngSubmit)="search()">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-6">
+            <label class="form-label" for="domain">Domain Name</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-globe"></i></span>
+              <input
+                id="domain"
+                type="text"
+                class="form-control"
+                placeholder="Enter domain name..."
+                name="domainName"
+                [(ngModel)]="domainName"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="orderBy">Sort By</label>
+            <select id="orderBy" class="form-select" name="orderBy" [(ngModel)]="orderBy">
+              @for (opt of orderByOptions; track opt.value) {
+                <option [value]="opt.value">{{ opt.label }}</option>
+              }
+            </select>
+          </div>
+          <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-primary" [disabled]="loading()">
+              @if (loading()) {
+                <span class="spinner-border spinner-border-sm"></span>
+              } @else {
+                <i class="bi bi-search me-1"></i>Search
+              }
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <span>{{ error() }}</span>
+    </div>
+  }
+
+  @if (loading()) {
+    <app-loading message="Searching..." />
+  } @else if (searched() && !error()) {
+    <div class="card app-card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h2 class="section-title mb-0">
+          Results <span class="count-badge">{{ results().length }}</span>
+        </h2>
+        <button class="btn btn-sm btn-outline-secondary" (click)="reset()">
+          <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+        </button>
+      </div>
+      <div class="card-body p-0">
+        @if (results().length === 0) {
+          <app-empty-state
+            icon="bi-search"
+            title="No results found"
+            message="No scans matched your search. Try a different domain name."
+          />
+        } @else {
+          <div class="table-responsive">
+            <table class="table app-table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Domain Name</th>
+                  <th class="text-center">Pages</th>
+                  <th class="text-center">Broken Links</th>
+                  <th class="text-center">Missing Images</th>
+                  <th class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (scan of results(); track scan.id) {
+                  <tr>
+                    <td><span class="badge-id">#{{ scan.id }}</span></td>
+                    <td class="fw-semibold">{{ scan.domainName }}</td>
+                    <td class="text-center">{{ scan.numPages }}</td>
+                    <td class="text-center">{{ scan.numBrokenLinks }}</td>
+                    <td class="text-center">{{ scan.numMissingImages }}</td>
+                    <td class="text-end">
+                      <a [routerLink]="['/scans', scan.id]" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-eye"></i><span class="d-none d-md-inline ms-1">View</span>
+                      </a>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <app-empty-state
+      icon="bi-search"
+      title="Start your search"
+      message="Enter a domain name above and choose a sort option to find scans."
+    />
+  }
+</div>

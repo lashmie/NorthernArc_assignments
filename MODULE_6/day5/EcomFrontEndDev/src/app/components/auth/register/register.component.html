@@ -1,0 +1,29 @@
+<section class="card shadow-sm">
+  <h2 class="h4 mb-3">Register</h2>
+
+  <form class="d-grid gap-3" (ngSubmit)="submit()">
+    <label class="form-label mb-0">Name
+      <input class="form-control" name="name" [(ngModel)]="model.name" required minlength="3" />
+    </label>
+    <label class="form-label mb-0">Email
+      <input class="form-control" type="email" name="email" [(ngModel)]="model.email" required />
+    </label>
+    <label class="form-label mb-0">Address
+      <input class="form-control" name="address" [(ngModel)]="model.address" required minlength="5" />
+    </label>
+    <label class="form-label mb-0">Username
+      <input class="form-control" name="username" [(ngModel)]="model.username" required minlength="3" />
+    </label>
+    <label class="form-label mb-0">Password
+      <input class="form-control" type="password" name="password" [(ngModel)]="model.password" required minlength="8" />
+    </label>
+
+    <button class="btn btn-primary" type="submit" [disabled]="loading()">
+      {{ loading() ? 'Registering...' : 'Register' }}
+    </button>
+  </form>
+
+  <p class="text-danger mt-3 mb-1" *ngIf="error()">{{ error() }}</p>
+  <p class="text-success mt-3 mb-1" *ngIf="success()">{{ success() }}</p>
+  <p class="mb-0">Already registered? <a routerLink="/login">Login</a></p>
+</section>

@@ -1,0 +1,57 @@
+<div class="page-head">
+  <h1>Register Customer</h1>
+  <p class="subtle">Create a new customer account (Admin only)</p>
+</div>
+
+@if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+@if (success()) { <div class="alert alert-success">{{ success() }}</div> }
+
+<div class="card form-card">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="grid-2">
+      <div class="field">
+        <label for="customerName">Full Name</label>
+        <input id="customerName" type="text" formControlName="customerName" placeholder="John Doe" />
+        @if (form.controls.customerName.touched && form.controls.customerName.invalid) {
+          <span class="error-text">Name is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="john@example.com" />
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <span class="error-text">Enter a valid email.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="Min 6 characters" />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <span class="error-text">Password must be at least 6 characters.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="phoneNumber">Phone Number</label>
+        <input id="phoneNumber" type="text" formControlName="phoneNumber" placeholder="9876543210" />
+        @if (form.controls.phoneNumber.touched && form.controls.phoneNumber.invalid) {
+          <span class="error-text">Enter a 10-digit number starting with 6-9.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="city">City</label>
+        <input id="city" type="text" formControlName="city" placeholder="Mumbai" />
+        @if (form.controls.city.touched && form.controls.city.invalid) {
+          <span class="error-text">City is required.</span>
+        }
+      </div>
+    </div>
+
+    <button class="btn" type="submit" [disabled]="loading()">
+      @if (loading()) { <span class="spinner"></span> Registering… } @else { Register Customer }
+    </button>
+  </form>
+</div>

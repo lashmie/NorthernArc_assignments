@@ -1,0 +1,8 @@
+<!-- <input ngModel="nameservices.newName" placeholder="Enter name" />
+<button (click)="addName(nameservices.newName)">Add</button> -->
+<!-- //we are going to add a new name to the list of names. We will use the addName method from the nameservices service to do this. The input field will be bound to the newName property of the nameservices service using ngModel. When the button is clicked, the addName method will be called with the value of newName as an argument. -->
+<input [(ngModel)]="newName" placeholder="Enter name" />
+
+<button (click)="addName(newName)">
+    Add
+</button>

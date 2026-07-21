@@ -1,0 +1,36 @@
+<div class="shell" [class.collapsed]="!sidebarOpen()">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">M</div>
+      <span class="logo-text">Minion</span>
+    </div>
+
+    <nav class="nav">
+      @for (item of navItems(); track item.path) {
+        <a [routerLink]="item.path" routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: item.path === '/loans' }">
+          <span class="nav-icon">{{ item.icon }}</span>
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn" (click)="toggleSidebar()" aria-label="Toggle menu">☰</button>
+      <div class="spacer"></div>
+      <div class="user">
+        <div class="user-info">
+          <span class="user-email">{{ email() }}</span>
+          <span class="badge role-badge">{{ role() }}</span>
+        </div>
+        <button class="btn btn-ghost btn-sm" (click)="logout()">Logout</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

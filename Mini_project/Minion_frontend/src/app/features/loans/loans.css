@@ -1,0 +1,4 @@
+.page-head { margin-bottom: 1.5rem; }
+.center { display: grid; place-items: center; padding: 3rem; }
+.actions { display: flex; gap: .4rem; }
+.pager { margin-top: 1rem; }

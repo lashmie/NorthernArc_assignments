@@ -1,0 +1,52 @@
+<section class="card shadow-sm text-center">
+    <h1 class="h3 mb-2">Welcome to E-Commerce Dashboard</h1>
+    <p class="text-muted mb-4">Manage products, customers, and orders with role-based access.</p>
+
+    <div class="row g-3 mb-4 text-start">
+      <div class="col-md-4">
+        <div class="border rounded p-3 h-100">
+          <p class="mb-1 text-muted">Total Products</p>
+          <h2 class="h4 mb-0">{{ totalProducts() }}</h2>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="isAdmin()">
+        <div class="border rounded p-3 h-100">
+          <p class="mb-1 text-muted">Total Customers</p>
+          <h2 class="h4 mb-0">{{ totalCustomers() }}</h2>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="border rounded p-3 h-100">
+          <p class="mb-1 text-muted">Total Orders</p>
+          <h2 class="h4 mb-0">{{ totalOrders() }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+      <a class="btn btn-primary" routerLink="/products">Manage Products</a>
+      <a class="btn btn-success" routerLink="/orders">Manage Orders</a>
+      <a class="btn btn-warning text-dark" routerLink="/customers" *ngIf="isAdmin()">Manage Customers</a>
+    </div>
+
+    <div class="mt-4 text-start">
+      <h3 class="h5">Recent Orders</h3>
+      <div class="table-responsive" *ngIf="recentOrders().length > 0; else noRecentOrders">
+        <table class="table table-sm table-striped mb-0">
+          <thead>
+            <tr><th>Order ID</th><th>Status</th><th>Customer</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of recentOrders()">
+              <td>{{ order.id }}</td>
+              <td>{{ order.status }}</td>
+              <td>{{ order.customerName || order.customerId }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noRecentOrders>
+        <p class="mb-0 text-muted">No recent orders to show.</p>
+      </ng-template>
+    </div>
+</section>

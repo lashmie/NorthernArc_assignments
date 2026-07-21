@@ -1,0 +1,13 @@
+<input [(ngModel)]="movieDTO.id">
+<input [(ngModel)]="movieDTO.title">
+
+<input [(ngModel)]="movieDTO.director">
+
+<input [(ngModel)]="movieDTO.genre">
+
+<input type="number"
+       [(ngModel)]="movieDTO.rating">
+
+<button (click)="updateMovie()">
+    Update Movie
+</button>

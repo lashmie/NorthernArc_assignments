@@ -1,0 +1,43 @@
+<section class="card shadow-sm">
+  <h2 class="h4 mb-3">Shopping Cart</h2>
+
+  <div class="table-responsive" *ngIf="!isEmpty(); else emptyCart">
+    <table class="table table-striped align-middle mb-0">
+      <thead>
+        <tr><th>Product</th><th>Unit Cost</th><th>Quantity</th><th>Line Total</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items()">
+          <td>{{ item.productName }}</td>
+          <td>{{ item.cost }}</td>
+          <td>
+            <input
+              class="form-control"
+              type="number"
+              min="1"
+              [value]="item.quantity"
+              (change)="updateQuantity(item.productId, $any($event.target).value)"
+            />
+          </td>
+          <td>{{ item.quantity * item.cost }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger" type="button" (click)="removeItem(item.productId)">
+              Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #emptyCart>
+    <p class="mb-0">Your cart is empty.</p>
+  </ng-template>
+
+  <div class="d-flex justify-content-between align-items-center mt-3" *ngIf="!isEmpty()">
+    <h3 class="h5 mb-0">Total: {{ totalCost() }}</h3>
+    <button class="btn btn-primary" type="button" (click)="goToCheckout()">Proceed to Checkout</button>
+  </div>
+
+  <p class="text-danger mt-3 mb-0" *ngIf="message()">{{ message() }}</p>
+</section>

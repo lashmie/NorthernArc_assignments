@@ -1,0 +1,15 @@
+<ul>
+  @for(movie of movies(); track movie.id) {
+    <li>
+        {{movie.id}} -
+      {{ movie.title }} -
+      {{ movie.director }} -
+      {{ movie.genre }} -
+      {{ movie.rating }}
+
+      <button (click)="movieservices.removeMovie(movie.id)">
+        Remove
+      </button>
+    </li>
+  }
+</ul>

@@ -1,0 +1,18 @@
+<p>person-component works!</p>
+<p>person works!</p>
+<div class="card m-2 p-2">
+   <p>Id: {{ p.id }}</p>
+    <h4>{{ p.name }}</h4>
+  <p>Age: {{ p.age }}</p>
+  <p>Email: {{ p.email }}</p>
+
+  <!--update button added-->
+  <button class="btn btn-warning"
+            (click)="editPerson()">
+        Edit
+    </button>
+  <button class="btn btn-danger"
+        (click)="removePerson()">
+    Remove
+</button>
+</div>

@@ -1,0 +1,23 @@
+.app-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding-block: 1.4rem;
+  margin-top: auto;
+}
+
+.app-footer .brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.footer-text {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}

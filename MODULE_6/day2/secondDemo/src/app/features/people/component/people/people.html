@@ -1,0 +1,24 @@
+<h2>People</h2>
+
+<app-add-person
+    (onAdd)="addPerson($event)">
+</app-add-person>
+
+<hr>
+
+<app-update-person
+    [person]="selectedPerson"
+    (onUpdate)="updatePerson($event)">
+</app-update-person>
+
+<hr>
+
+@for(person of people; track person.id){
+
+<app-person-component
+    [p]="person"
+    (onRemovePerson)="removePerson($event)"
+    (onEditPerson)="selectPerson($event)">
+</app-person-component>
+
+}

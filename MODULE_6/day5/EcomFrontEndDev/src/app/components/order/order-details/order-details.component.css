@@ -1,0 +1,9 @@
+.card {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.modal {
+  background: rgba(15, 23, 42, 0.45);
+}

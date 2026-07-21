@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+code {
+  font-size: 0.72rem;
+}
+
+.card {
+  border-radius: 1rem;
+}
+
+.input-group-text {
+  min-width: 2.75rem;
+  justify-content: center;
+}
+
+.btn-dark {
+  letter-spacing: 0.2px;
+}
+
+.text-danger {
+  font-size: 0.9rem;
+}

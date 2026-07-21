@@ -1,0 +1,36 @@
+<section class="card shadow-sm">
+  <h2 class="h4 mb-3">Orders {{ isAdmin() ? '(All)' : '(My Orders)' }}</h2>
+
+  <p class="mb-2" *ngIf="loading()">Loading orders...</p>
+
+  <div class="table-responsive" *ngIf="orders().length > 0">
+    <table class="table table-striped align-middle mb-0">
+      <thead>
+        <tr><th>ID</th><th>Customer</th><th>Status</th><th>Order Date</th><th>Items</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders()">
+          <td>{{ order.id }}</td>
+          <td>{{ order.customerName || order.customerId }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.orderDate || 'N/A' }}</td>
+          <td>{{ order.orderItemIds?.length || 0 }}</td>
+          <td>
+            <a class="btn btn-sm btn-outline-primary me-2" [routerLink]="['/orders', order.id]">View</a>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              type="button"
+              *ngIf="isUser() && order.status === 'PENDING'"
+              (click)="cancel(order.id)"
+            >
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mb-0" *ngIf="orders().length === 0">No orders found.</p>
+  <p class="text-danger mb-0" *ngIf="error()">{{ error() }}</p>
+</section>

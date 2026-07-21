@@ -1,0 +1,12 @@
+<section class="card shadow-sm">
+  <h2 class="h4 mb-3">Add Product</h2>
+  <form class="d-grid gap-3" (ngSubmit)="submit()">
+    <label class="form-label mb-0">Name <input class="form-control" name="name" [(ngModel)]="model.name" /></label>
+    <label class="form-label mb-0">Brand <input class="form-control" name="brand" [(ngModel)]="model.brand" /></label>
+    <label class="form-label mb-0">Category <input class="form-control" name="category" [(ngModel)]="model.category" /></label>
+    <label class="form-label mb-0">Cost <input class="form-control" type="number" name="cost" [(ngModel)]="model.cost" /></label>
+    <button class="btn btn-primary" type="submit" [disabled]="loading()">{{ loading() ? 'Saving...' : 'Save' }}</button>
+  </form>
+  <p class="text-success mt-3 mb-0" *ngIf="success()">{{ success() }}</p>
+  <p class="text-danger mt-3 mb-0" *ngIf="error()">{{ error() }}</p>
+</section>

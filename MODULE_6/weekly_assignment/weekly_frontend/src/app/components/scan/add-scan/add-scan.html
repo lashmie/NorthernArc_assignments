@@ -1,0 +1,108 @@
+<div class="container py-4">
+  <div class="page-head mb-4">
+    <a routerLink="/scans" class="back-link"><i class="bi bi-arrow-left me-1"></i>Back to scans</a>
+    <h1 class="page-title"><i class="bi bi-plus-circle me-2"></i>Add New Scan</h1>
+    <p class="page-subtitle mb-0">Enter the details of the website scan below.</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+      <div class="card app-card">
+        <div class="card-body p-4">
+          @if (error()) {
+            <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+              <span>{{ error() }}</span>
+            </div>
+          }
+
+          <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <div class="mb-3">
+              <label class="form-label" for="domainName">Domain Name <span class="req">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-globe"></i></span>
+                <input
+                  id="domainName"
+                  type="text"
+                  class="form-control"
+                  placeholder="example.com"
+                  formControlName="domainName"
+                  [class.is-invalid]="isInvalid('domainName')"
+                />
+              </div>
+              @if (isInvalid('domainName')) {
+                <div class="invalid-note">
+                  @if (form.get('domainName')?.errors?.['required']) {
+                    Domain name is required.
+                  } @else if (form.get('domainName')?.errors?.['minlength']) {
+                    Domain name must be at least 3 characters.
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label" for="numPages">Number of Pages <span class="req">*</span></label>
+                <input
+                  id="numPages"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                  formControlName="numPages"
+                  [class.is-invalid]="isInvalid('numPages')"
+                />
+                @if (isInvalid('numPages')) {
+                  <div class="invalid-note">Enter a valid number (0 or more).</div>
+                }
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label" for="numBrokenLinks">Broken Links <span class="req">*</span></label>
+                <input
+                  id="numBrokenLinks"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                  formControlName="numBrokenLinks"
+                  [class.is-invalid]="isInvalid('numBrokenLinks')"
+                />
+                @if (isInvalid('numBrokenLinks')) {
+                  <div class="invalid-note">Enter a valid number (0 or more).</div>
+                }
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label" for="numMissingImages">Missing Images <span class="req">*</span></label>
+                <input
+                  id="numMissingImages"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                  formControlName="numMissingImages"
+                  [class.is-invalid]="isInvalid('numMissingImages')"
+                />
+                @if (isInvalid('numMissingImages')) {
+                  <div class="invalid-note">Enter a valid number (0 or more).</div>
+                }
+              </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mt-4">
+              <button type="submit" class="btn btn-primary" [disabled]="submitting()">
+                @if (submitting()) {
+                  <span class="spinner-border spinner-border-sm me-2"></span>Saving...
+                } @else {
+                  <i class="bi bi-check-lg me-2"></i>Create Scan
+                }
+              </button>
+              <button type="button" class="btn btn-outline-secondary" (click)="cancel()" [disabled]="submitting()">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

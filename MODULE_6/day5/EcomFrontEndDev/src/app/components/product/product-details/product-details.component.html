@@ -1,0 +1,13 @@
+<section class="card shadow-sm" *ngIf="product() as p">
+  <h2 class="h4">Product #{{ p.id }}</h2>
+  <p><strong>Name:</strong> {{ p.name }}</p>
+  <p><strong>Brand:</strong> {{ p.brand }}</p>
+  <p><strong>Category:</strong> {{ p.category }}</p>
+  <p><strong>Cost:</strong> {{ p.cost }}</p>
+  <p><strong>Description:</strong> {{ p.description || 'Not available' }}</p>
+  <button class="btn btn-sm btn-outline-success me-2" type="button" *ngIf="isUser()" (click)="addToCart()">Add to Cart</button>
+  <a class="btn btn-sm btn-outline-primary" [routerLink]="['/products/update', p.id]" *ngIf="isAdmin()">Update</a>
+  <p class="text-success mt-3 mb-0" *ngIf="success()">{{ success() }}</p>
+</section>
+
+<p class="text-danger mb-0" *ngIf="error()">{{ error() }}</p>

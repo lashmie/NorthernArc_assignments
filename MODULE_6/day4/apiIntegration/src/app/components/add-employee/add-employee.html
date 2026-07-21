@@ -1,0 +1,60 @@
+<section class="add-employee-card">
+	<header class="card-head">
+		<p class="eyebrow">Create</p>
+		<h2>Add Employee</h2>
+	</header>
+
+	<form (ngSubmit)="onSubmit()" #employeeForm="ngForm" class="form-grid">
+		<div class="field">
+			<label for="id">Id</label>
+			<input
+				id="id"
+				name="id"
+				type="number"
+				min="1"
+				required
+				[(ngModel)]="employee.id"
+			/>
+		</div>
+
+		<div class="field">
+			<label for="name">Name</label>
+			<input
+				id="name"
+				name="name"
+				type="text"
+				required
+				[(ngModel)]="employee.name"
+			/>
+		</div>
+
+		<div class="field full-width">
+			<label for="salary">Salary</label>
+			<input
+				id="salary"
+				name="salary"
+				type="number"
+				min="1"
+				required
+				[(ngModel)]="employee.salary"
+			/>
+		</div>
+
+		<div class="actions full-width">
+			<button type="button" class="ghost-btn" (click)="onReset()" [disabled]="status().loading">
+				Reset
+			</button>
+			<button type="submit" class="primary-btn" [disabled]="employeeForm.invalid || status().loading">
+				{{ status().loading ? 'Adding...' : 'Add Employee' }}
+			</button>
+		</div>
+	</form>
+
+	@if(status().success){
+		<p class="success">Employee added successfully</p>
+	}
+
+	@if(status().error){
+		<p class="error">{{ status().error }}</p>
+	}
+</section>

@@ -1,0 +1,54 @@
+<!-- <h2 class="text-center mt-3">
+    Todo Management
+</h2>
+ 
+<div class="container">
+ 
+    <div class="row">
+ 
+        @for(todo of todoService.getTodos(); track todo.id){
+ 
+            <div class="col-md-4 mb-3">
+ 
+                <app-todo-item [todo]="todo"></app-todo-item>
+ 
+            </div>
+ 
+        }
+ 
+    </div>
+    <app-add-todo
+    (todoAdded)="loadTodos()">
+</app-add-todo>
+ 
+</div> -->
+<h2 class="text-center mt-3">
+    Todo Management
+</h2>
+
+<div class="container">
+
+    <!-- Add Todo Form -->
+    <app-add-todo></app-add-todo>
+    <app-update-todo></app-update-todo>
+
+    <hr>
+
+    <div class="row">
+
+        @for (todo of todoService.getTodos(); track todo.id) {
+
+            <div class="col-md-4 mb-3">
+
+                <app-todo-item
+                    [todo]="todo">
+                </app-todo-item>
+
+            </div>
+
+        }
+
+    </div>
+   
+
+</div>

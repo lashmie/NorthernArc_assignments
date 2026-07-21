@@ -1,0 +1,27 @@
+<input
+class="form-control mb-2"
+[(ngModel)]="todo.title">
+
+<input
+class="form-control mb-2"
+[(ngModel)]="todo.description">
+
+<label>
+
+<input
+type="checkbox"
+[(ngModel)]="todo.completed">
+
+Completed
+
+</label>
+
+<br>
+
+<button
+class="btn btn-success"
+(click)="todoService.updateTodo(todo)">
+
+Update
+
+</button>

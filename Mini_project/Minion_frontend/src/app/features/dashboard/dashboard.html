@@ -1,0 +1,110 @@
+<div class="between page-head">
+  <div>
+    <h1>Dashboard</h1>
+    <p class="subtle">Overview of your loan portfolio</p>
+  </div>
+</div>
+
+@if (loading()) {
+  <div class="card center"><span class="spinner"></span></div>
+} @else {
+
+  @if (error()) {
+    <div class="alert alert-error">{{ error() }}</div>
+  }
+
+  <!-- ADMIN / MANAGER: full metrics -->
+  @if (data(); as d) {
+    <div class="stats">
+      <div class="stat-card">
+        <span class="stat-label">Total Customers</span>
+        <span class="stat-value">{{ d.totalCustomers | number }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Total Loans</span>
+        <span class="stat-value">{{ d.totalLoans | number }}</span>
+      </div>
+      <div class="stat-card accent-green">
+        <span class="stat-label">Active Loans</span>
+        <span class="stat-value">{{ d.activeLoans | number }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Closed Loans</span>
+        <span class="stat-value">{{ d.closedLoans | number }}</span>
+      </div>
+      <div class="stat-card accent-red">
+        <span class="stat-label">Overdue EMIs</span>
+        <span class="stat-value">{{ d.overdueEMIs | number }}</span>
+      </div>
+      <div class="stat-card accent-red">
+        <span class="stat-label">NPA Accounts</span>
+        <span class="stat-value">{{ d.npaAccounts | number }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">EMI Collected</span>
+        <span class="stat-value">{{ d.totalEMICollected | currency:'INR':'symbol':'1.0-0' }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Penalty Collected</span>
+        <span class="stat-value">{{ d.totalPenaltyCollected | currency:'INR':'symbol':'1.0-0' }}</span>
+      </div>
+    </div>
+
+    <div class="grid-2 lower">
+      <div class="card">
+        <h3 class="section-title">Portfolio Highlights</h3>
+        <ul class="kv">
+          <li><span>Average Interest Rate</span><strong>{{ d.averageInterestRate | number:'1.2-2' }}%</strong></li>
+          <li><span>Highest Paying Customer</span><strong>{{ d.highestPayingCustomer || '—' }}</strong></li>
+          @if (d.highestOutstandingLoan; as loan) {
+            <li><span>Highest Outstanding Loan</span><strong>{{ loan.loanType }} · {{ loan.principalAmount | currency:'INR':'symbol':'1.0-0' }}</strong></li>
+          }
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">EMI Collection by City</h3>
+        @if (loanData(); as ld) {
+          @if (cityEntries(ld.emiCollectionByCity).length) {
+            <ul class="kv">
+              @for (entry of cityEntries(ld.emiCollectionByCity); track entry[0]) {
+                <li><span>{{ entry[0] }}</span><strong>{{ entry[1] | currency:'INR':'symbol':'1.0-0' }}</strong></li>
+              }
+            </ul>
+          } @else {
+            <p class="muted">No collection data available.</p>
+          }
+        }
+      </div>
+    </div>
+  }
+
+  <!-- USER: simplified view -->
+  @if (role() === 'USER') {
+    <div class="card welcome-card">
+      <h2>Welcome to Minion 👋</h2>
+      <p class="subtle">You can view active loans and pay your EMIs from here.</p>
+      <div class="row" style="margin-top:1rem;">
+        <a class="btn" routerLink="/loans">View Loans</a>
+        <a class="btn btn-ghost" routerLink="/emis/pay">Pay EMI</a>
+      </div>
+    </div>
+
+    @if (loanData(); as ld) {
+      <div class="stats" style="margin-top:1.25rem;">
+        <div class="stat-card accent-green">
+          <span class="stat-label">Active Loans</span>
+          <span class="stat-value">{{ ld.activeLoans | number }}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Zero-Overdue Loans</span>
+          <span class="stat-value">{{ ld.zeroOverdueLoans | number }}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Avg Interest Rate</span>
+          <span class="stat-value">{{ ld.averageInterestRate | number:'1.2-2' }}%</span>
+        </div>
+      </div>
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<section class="card shadow-sm" *ngIf="customer() as c">
+  <h2 class="h4">Customer #{{ c.id }}</h2>
+  <p><strong>Name:</strong> {{ c.name }}</p>
+  <p><strong>Email:</strong> {{ c.email }}</p>
+  <p><strong>Address:</strong> {{ c.address }}</p>
+  <a class="btn btn-sm btn-outline-primary" [routerLink]="['/customers/update', c.id]">Update</a>
+
+  <h3 class="h5 mt-4">Orders</h3>
+  <div class="table-responsive" *ngIf="orders().length > 0; else noOrders">
+    <table class="table table-sm table-striped mb-0">
+      <thead>
+        <tr><th>Order ID</th><th>Status</th><th>Items Count</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders()">
+          <td>{{ order.id }}</td>
+          <td>{{ order.status || 'N/A' }}</td>
+          <td>{{ order.orderItemIds?.length || 0 }}</td>
+          <td>
+            <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/orders', order.id]">View Order</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noOrders>
+    <p class="mb-0 text-muted">No orders found for this customer.</p>
+  </ng-template>
+</section>
+
+<p class="mb-0" *ngIf="loading()">Loading customer details...</p>
+<p class="text-danger mb-0" *ngIf="error()">{{ error() }}</p>

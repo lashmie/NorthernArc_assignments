@@ -1,0 +1,9 @@
+
+<ul>
+    @for(name of nameservices.getNames()();track $index)
+    {
+        <li>{{name}}
+            <button (click)="nameservices.removeName(name)">Remove</button>
+        </li>
+    }
+</ul>

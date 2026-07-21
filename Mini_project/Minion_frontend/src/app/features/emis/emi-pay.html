@@ -1,0 +1,62 @@
+<div class="page-head">
+  <h1>Pay EMI</h1>
+  <p class="subtle">Record an EMI payment against a schedule</p>
+</div>
+
+@if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+
+<div class="grid-2">
+  <div class="card">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="emiId">EMI Schedule ID</label>
+        <input id="emiId" type="number" formControlName="emiId" placeholder="e.g. 101" />
+        @if (form.controls.emiId.touched && form.controls.emiId.invalid) {
+          <span class="error-text">Enter a valid EMI schedule ID.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="amount">Amount (₹)</label>
+        <input id="amount" type="number" step="0.01" formControlName="amount" placeholder="e.g. 5000" />
+        @if (form.controls.amount.touched && form.controls.amount.invalid) {
+          <span class="error-text">Enter an amount greater than zero.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="paymentMode">Payment Mode</label>
+        <select id="paymentMode" formControlName="paymentMode">
+          @for (mode of paymentModes; track mode) {
+            <option [value]="mode">{{ mode }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="referenceNumber">Reference Number (optional)</label>
+        <input id="referenceNumber" type="text" formControlName="referenceNumber" placeholder="REF123456789" />
+      </div>
+
+      <button class="btn" type="submit" [disabled]="loading()">
+        @if (loading()) { <span class="spinner"></span> Processing… } @else { Submit Payment }
+      </button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3 class="section-title">Payment Result</h3>
+    @if (result(); as emi) {
+      <div class="alert alert-success">Payment recorded successfully.</div>
+      <ul class="kv">
+        <li><span>Status</span><span [class]="badgeClass(emi.status)">{{ emi.status }}</span></li>
+        <li><span>Amount Due</span><strong>{{ emi.amountDue | currency:'INR':'symbol':'1.0-2' }}</strong></li>
+        <li><span>Amount Paid</span><strong>{{ emi.amountPaid | currency:'INR':'symbol':'1.0-2' }}</strong></li>
+        <li><span>Penalty</span><strong>{{ emi.penaltyAmount | currency:'INR':'symbol':'1.0-2' }}</strong></li>
+        <li><span>Days Past Due</span><strong>{{ emi.daysPastDue ?? 0 }}</strong></li>
+      </ul>
+    } @else {
+      <p class="muted">Submit a payment to see the updated EMI status here.</p>
+    }
+  </div>
+</div>

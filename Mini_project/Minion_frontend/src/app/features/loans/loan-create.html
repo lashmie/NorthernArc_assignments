@@ -1,0 +1,65 @@
+<div class="page-head">
+  <h1>Create Loan</h1>
+  <p class="subtle">Disburse a new loan to a customer</p>
+</div>
+
+@if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+
+<div class="card form-card">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="grid-2">
+      <div class="field">
+        <label for="loanType">Loan Type</label>
+        <select id="loanType" formControlName="loanType">
+          @for (type of loanTypes; track type) {
+            <option [value]="type">{{ type }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="customerId">Customer ID</label>
+        <input id="customerId" type="number" formControlName="customerId" placeholder="e.g. 1" />
+        @if (form.controls.customerId.touched && form.controls.customerId.invalid) {
+          <span class="error-text">A valid customer ID is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="principalAmount">Principal Amount (₹)</label>
+        <input id="principalAmount" type="number" formControlName="principalAmount" />
+        @if (form.controls.principalAmount.touched && form.controls.principalAmount.invalid) {
+          <span class="error-text">Enter an amount greater than zero.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="annualInterestRate">Annual Interest Rate (%)</label>
+        <input id="annualInterestRate" type="number" step="0.1" formControlName="annualInterestRate" />
+        @if (form.controls.annualInterestRate.touched && form.controls.annualInterestRate.invalid) {
+          <span class="error-text">Enter a valid interest rate.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="tenureMonths">Tenure (months)</label>
+        <input id="tenureMonths" type="number" formControlName="tenureMonths" />
+        @if (form.controls.tenureMonths.touched && form.controls.tenureMonths.invalid) {
+          <span class="error-text">Enter a valid tenure.</span>
+        }
+      </div>
+    </div>
+
+    <div class="emi-preview">
+      <span class="muted">Estimated monthly EMI</span>
+      <strong>₹ {{ previewEmi() | number:'1.0-0' }}</strong>
+    </div>
+
+    <div class="row form-actions">
+      <button class="btn" type="submit" [disabled]="loading()">
+        @if (loading()) { <span class="spinner"></span> Creating… } @else { Create Loan }
+      </button>
+      <a class="btn btn-ghost" routerLink="/loans">Cancel</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,74 @@
+<div class="between page-head">
+  <div>
+    <h1>Loans</h1>
+    <p class="subtle">{{ totalElements() }} loan(s) in the portfolio</p>
+  </div>
+  @if (canManage) {
+    <a class="btn" routerLink="/loans/new">➕ New Loan</a>
+  }
+</div>
+
+@if (message()) { <div class="alert alert-success">{{ message() }}</div> }
+@if (error()) { <div class="alert alert-error">{{ error() }}</div> }
+
+@if (loading()) {
+  <div class="card center"><span class="spinner"></span></div>
+} @else if (!loans().length) {
+  <div class="card center muted">No loans found.</div>
+} @else {
+  <div class="table-wrap">
+    <table class="data">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Customer</th>
+          <th>City</th>
+          <th>Principal</th>
+          <th>Rate</th>
+          <th>Tenure</th>
+          <th>EMI</th>
+          <th>Disbursed</th>
+          <th>Status</th>
+          @if (canManage) { <th>Actions</th> }
+        </tr>
+      </thead>
+      <tbody>
+        @for (loan of loans(); track loan.loanId) {
+          <tr>
+            <td>#{{ loan.loanId }}</td>
+            <td>{{ loan.loanType }}</td>
+            <td>{{ loan.customerName || '—' }}</td>
+            <td>{{ loan.city || '—' }}</td>
+            <td>{{ loan.principalAmount | currency:'INR':'symbol':'1.0-0' }}</td>
+            <td>{{ loan.annualInterestRate | number:'1.2-2' }}%</td>
+            <td>{{ loan.tenureMonths }} mo</td>
+            <td>{{ loan.emiAmount | currency:'INR':'symbol':'1.0-0' }}</td>
+            <td>{{ loan.disbursementDate | date:'mediumDate' }}</td>
+            <td><span [class]="badgeClass(loan.loanStatus)">{{ loan.loanStatus }}</span></td>
+            @if (canManage) {
+              <td class="actions">
+                @if (canApprove && isPending(loan.loanStatus)) {
+                  <button class="btn btn-sm" (click)="approveLoan(loan)">Approve</button>
+                  <button class="btn btn-danger btn-sm" (click)="rejectLoan(loan)">Reject</button>
+                }
+                <button class="btn btn-ghost btn-sm" (click)="reviseInterest(loan)">Revise</button>
+                @if (canDelete) {
+                  <button class="btn btn-danger btn-sm" (click)="deleteLoan(loan)">Delete</button>
+                }
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="between pager">
+    <span class="muted">Page {{ page() + 1 }} of {{ totalPages() || 1 }}</span>
+    <div class="row">
+      <button class="btn btn-ghost btn-sm" (click)="prev()" [disabled]="page() === 0">← Prev</button>
+      <button class="btn btn-ghost btn-sm" (click)="next()" [disabled]="page() >= totalPages() - 1">Next →</button>
+    </div>
+  </div>
+}

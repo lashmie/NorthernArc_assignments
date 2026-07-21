@@ -1,0 +1,16 @@
+@if(!removed()){
+    <article class="employee-card">
+        <div class="employee-main">
+            <h3 class="employee-name">{{ employee?.name }}</h3>
+            <p class="employee-salary">Salary: {{ employee?.salary }}</p>
+        </div>
+
+        <button (click)="remove()" type="button" class="remove-btn" [disabled]="status().loading || deleteBlocked()">
+            {{ status().loading ? 'Removing...' : (deleteBlocked() ? 'Blocked' : 'Remove') }}
+        </button>
+
+        @if(status().error){
+            <p class="error-msg">{{ status().error }}</p>
+        }
+    </article>
+}

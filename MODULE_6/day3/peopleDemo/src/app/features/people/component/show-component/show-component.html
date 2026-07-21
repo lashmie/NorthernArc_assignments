@@ -1,0 +1,6 @@
+<ul>
+    @for(name of peoppleService.getPeople() | async;track $index) {
+        <li>{{name}}</li><button (click)="peoppleService.removePerson(name)">Remove</button>
+    }
+</ul>
+

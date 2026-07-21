@@ -1,0 +1,35 @@
+.page-head { margin-bottom: 1.5rem; }
+.center { display: grid; place-items: center; padding: 3rem; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  border-left: 4px solid var(--brand);
+}
+.stat-card.accent-green { border-left-color: var(--success); }
+.stat-card.accent-red { border-left-color: var(--danger); }
+.stat-label { font-size: .8rem; color: var(--ink-soft); font-weight: 600; }
+.stat-value { font-size: 1.55rem; font-weight: 700; color: var(--ink); }
+
+.lower { margin-top: 1.25rem; }
+.kv { list-style: none; margin: 0; padding: 0; }
+.kv li {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: .6rem 0; border-bottom: 1px solid var(--line);
+  font-size: .9rem;
+}
+.kv li:last-child { border-bottom: none; }
+.kv li span { color: var(--ink-soft); }
+
+.welcome-card { text-align: left; }

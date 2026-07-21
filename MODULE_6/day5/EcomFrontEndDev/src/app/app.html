@@ -1,0 +1,20 @@
+<nav class="top-nav" *ngIf="checkToken()">
+  <a routerLink="/products" routerLinkActive="active">Ecom Portal</a>
+  <a routerLink="/dashboard" routerLinkActive="active">Home</a>
+  <a routerLink="/products" routerLinkActive="active">Product Catalog</a>
+  <a routerLink="/add-product" routerLinkActive="active" *ngIf="role() === 'ADMIN'">Add Product</a>
+  <a routerLink="/orders" routerLinkActive="active">My Orders</a>
+  <a routerLink="/cart" routerLinkActive="active" *ngIf="role() === 'USER'">Cart ({{ cartCount() }})</a>
+  <a routerLink="/profile" routerLinkActive="active" *ngIf="role() === 'USER'">Profile</a>
+  <a routerLink="/customers" routerLinkActive="active" *ngIf="role() === 'ADMIN'">Customers</a>
+  <a routerLink="/logout" routerLinkActive="active">Logout</a>
+</nav>
+
+<nav class="top-nav" *ngIf="!checkToken()">
+  <a routerLink="/login" routerLinkActive="active">Login</a>
+  <a routerLink="/register" routerLinkActive="active">Register</a>
+</nav>
+
+<main class="content-wrap">
+  <router-outlet></router-outlet>
+</main>

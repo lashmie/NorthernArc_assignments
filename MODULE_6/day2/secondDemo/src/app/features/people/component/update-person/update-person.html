@@ -1,0 +1,38 @@
+<div class="card mt-3 p-3">
+
+    <h4>Update Person</h4>
+
+    <input
+        class="form-control mb-2"
+        type="number"
+        [(ngModel)]="id"
+        placeholder="ID"
+        readonly>
+
+    <input
+        class="form-control mb-2"
+        type="text"
+        [(ngModel)]="name"
+        placeholder="Name">
+
+    <input
+        class="form-control mb-2"
+        type="number"
+        [(ngModel)]="age"
+        placeholder="Age">
+
+    <input
+        class="form-control mb-2"
+        type="email"
+        [(ngModel)]="email"
+        placeholder="Email">
+
+    <button
+        class="btn btn-warning"
+        (click)="updatePerson()">
+
+        Update Person
+
+    </button>
+
+</div>

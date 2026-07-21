@@ -1,0 +1,62 @@
+.employees-page {
+	max-width: 860px;
+	margin: 1.2rem auto;
+	padding: 1rem;
+	border-radius: 1rem;
+	background:
+		radial-gradient(circle at top left, rgba(20, 184, 166, 0.12), transparent 48%),
+		radial-gradient(circle at 90% 12%, rgba(59, 130, 246, 0.12), transparent 44%),
+		#f7fbff;
+}
+
+.employees-header h2 {
+	margin: 0;
+	color: #0f172a;
+}
+
+.eyebrow {
+	margin: 0;
+	text-transform: uppercase;
+	letter-spacing: 0.09em;
+	color: #0f766e;
+	font-size: 0.75rem;
+	font-weight: 700;
+}
+
+.subtext {
+	margin: 0.45rem 0 0;
+	color: #475569;
+}
+
+.employee-list {
+	margin-top: 1rem;
+	display: grid;
+	gap: 0.9rem;
+}
+
+.loading-wrap {
+	display: grid;
+	place-items: center;
+	gap: 0.4rem;
+	margin: 1.2rem 0;
+}
+
+.loading-image {
+	width: 70px;
+	height: 70px;
+}
+
+.loading-text {
+	margin: 0;
+	color: #334155;
+}
+
+.error-text {
+	color: #b91c1c;
+	margin: 1rem 0;
+}
+
+.empty-state {
+	color: #475569;
+	margin-top: 1rem;
+}

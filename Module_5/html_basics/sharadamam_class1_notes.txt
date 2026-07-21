@@ -1,0 +1,67 @@
+4 ways of binding
+component-view
+ts file..
+
+1.data binding
+compoment  to view 
+ts file ,html file 
+
+name :String"lavanya"
+
+{{}}  ->Interpolation 
+
+2.property binding
+disable property
+component -> view (html -> we have button)
+here we use [] 
+disabled =false <button[disabled] =.. ></button>
+
+
+3.Event binding
+onsubmit
+ngsubmit 
+view (html)->component(ts)
+inside view ..we have click event 
+<button(click)=handleClick>
+(trigger)
+
+ts
+handleClick(){}
+
+4>why we go to angular?
+here we have two way data binding
+compon->view
+view -> component
+syntax* [(ngModel)]
+
+it follows mvc model
+html-view
+dto-model
+ts -controller(logics eg :validate)
+css
+spec.ts->test file
+
+2way data binding
+passing in the form and rendering in html(front end)
+ngmodel
+{{}}
+------------------------------------
+Forms Modules contains 4 different 
+ngForm
+ngModel
+ngForm
+
+
+pretag at end to print everying 
+pipe -> that transforms the data 
+<pre>{{newCustomer}}</pre>
+template form..
+extra one word we add template driven
+control on compon-> react..
+validation
+<small > tag..
+
+ng directives..
+apply conditions
+
+

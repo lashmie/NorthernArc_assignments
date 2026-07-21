@@ -1,0 +1,7 @@
+
+<!-- //box should be there to enter the name of the person to be updated and
+ a button to update the name of the person in the list
+ //kind of old name and new name should be there to update the name of the person in the list -->
+<input [(ngModel)]="oldName" placeholder="Enter old name">
+<input [(ngModel)]="newName" placeholder="Enter new name">
+<button (click)="updatePeople(oldName, newName)">Update People</button>

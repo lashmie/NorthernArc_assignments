@@ -1,0 +1,66 @@
+<div class="login-shell">
+  <div class="login-card">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div>
+        <h1>Minion</h1>
+        <p class="subtle">Loan Management System</p>
+      </div>
+    </div>
+
+    <h2 class="welcome">Create your account</h2>
+    <p class="muted sign-sub">Sign up to get started</p>
+
+    @if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="customerName">Full name</label>
+        <input id="customerName" type="text" formControlName="customerName" placeholder="Jane Doe" autocomplete="name" />
+        @if (form.controls.customerName.touched && form.controls.customerName.invalid) {
+          <span class="error-text">Name is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="you@example.com" autocomplete="username" />
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <span class="error-text">Enter a valid email address.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" placeholder="••••••••" autocomplete="new-password" />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <span class="error-text">Password must be at least 6 characters.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="phoneNumber">Phone number</label>
+        <input id="phoneNumber" type="tel" formControlName="phoneNumber" placeholder="9876543210" autocomplete="tel" />
+        @if (form.controls.phoneNumber.touched && form.controls.phoneNumber.invalid) {
+          <span class="error-text">Enter a valid 10-digit phone number.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="city">City</label>
+        <input id="city" type="text" formControlName="city" placeholder="Chennai" autocomplete="address-level2" />
+        @if (form.controls.city.touched && form.controls.city.invalid) {
+          <span class="error-text">City is required.</span>
+        }
+      </div>
+
+      <button class="btn login-btn" type="submit" [disabled]="loading()">
+        @if (loading()) { <span class="spinner"></span> Creating account… } @else { Create account }
+      </button>
+    </form>
+
+    <p class="muted foot">Already have an account? <a routerLink="/login">Sign in</a></p>
+  </div>
+</div>

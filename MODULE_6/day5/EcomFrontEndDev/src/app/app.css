@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+  color: #0f172a;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.top-nav {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #0b132b;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.top-nav a,
+.top-nav button {
+  color: #e2e8f0;
+  text-decoration: none;
+  border: 1px solid #334155;
+  background: #1e293b;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.top-nav a.active {
+  background: #0284c7;
+  border-color: #0369a1;
+}
+
+.content-wrap {
+  padding: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}

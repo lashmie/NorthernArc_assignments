@@ -1,0 +1,44 @@
+<section class="card shadow-sm">
+  <h2 class="h4 mb-3">My Profile</h2>
+
+  <p class="mb-2" *ngIf="loading()">Loading profile...</p>
+
+  <div *ngIf="profile() as p; else loadingState">
+    <div *ngIf="!editMode(); else editForm">
+      <p><strong>Name:</strong> {{ p.name }}</p>
+      <p><strong>Email:</strong> {{ p.email }}</p>
+      <p><strong>Address:</strong> {{ p.address }}</p>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-primary" type="button" (click)="toggleEdit()">Edit Profile</button>
+        <button class="btn btn-outline-danger" type="button" (click)="logout()">Logout</button>
+      </div>
+    </div>
+
+    <ng-template #editForm>
+      <form class="d-grid gap-3" (ngSubmit)="save()">
+        <label class="form-label mb-0">Name
+          <input class="form-control" name="name" [(ngModel)]="model.name" required />
+        </label>
+        <label class="form-label mb-0">Email
+          <input class="form-control" type="email" name="email" [(ngModel)]="model.email" required />
+        </label>
+        <label class="form-label mb-0">Address
+          <input class="form-control" name="address" [(ngModel)]="model.address" required />
+        </label>
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary" type="submit" [disabled]="loading()">
+            {{ loading() ? 'Saving...' : 'Save Changes' }}
+          </button>
+          <button class="btn btn-outline-secondary" type="button" (click)="toggleEdit()">Cancel</button>
+        </div>
+      </form>
+    </ng-template>
+  </div>
+
+  <ng-template #loadingState>
+    <p class="mb-0" *ngIf="!loading()">No profile data available.</p>
+  </ng-template>
+
+  <p class="text-success mt-3 mb-0" *ngIf="success()">{{ success() }}</p>
+  <p class="text-danger mt-3 mb-0" *ngIf="error()">{{ error() }}</p>
+</section>

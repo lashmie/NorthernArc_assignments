@@ -1,0 +1,8 @@
+<!-- //we are going ask for a old name and going to change the new name .. -->
+<input [(ngModel)]="oldName" placeholder="Enter old name" />
+<input [(ngModel)]="newName" placeholder="Enter new name" />    
+
+<button (click)="updateName(oldName, newName)">
+    Update
+</button>
+
