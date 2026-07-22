@@ -1,0 +1,83 @@
+<app-page-header
+  title="Search Track"
+  subtitle="Find a track by its title"
+  icon="bi-search">
+</app-page-header>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <form (ngSubmit)="onSearch()" class="row g-2">
+      <div class="col-md-5">
+        <label class="form-label">Title <span class="text-danger">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="title()"
+          (ngModelChange)="title.set($event)"
+          name="title"
+          placeholder="e.g. Shape of You" />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Album Name <small class="text-muted">(optional)</small></label>
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="albumName()"
+          (ngModelChange)="albumName.set($event)"
+          name="albumName"
+          placeholder="e.g. Divide" />
+      </div>
+      <div class="col-md-3 d-flex align-items-end">
+        <div class="d-grid w-100">
+          <button type="submit" class="btn btn-primary" [disabled]="loading() || !title().trim()">
+            @if (loading()) {
+              <span class="spinner-border spinner-border-sm me-1"></span>Searching...
+            } @else {
+              <i class="bi bi-search me-1"></i>Search
+            }
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+@if (error()) {
+  <div class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle me-2"></i>{{ error() }}
+  </div>
+}
+
+@if (loading()) {
+  <app-loading />
+} @else if (track()) {
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0"><i class="bi bi-music-note me-2"></i>{{ track()!.title }}</h5>
+    </div>
+    <div class="card-body">
+      <dl class="row mb-3">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">{{ track()!.id }}</dd>
+
+        <dt class="col-sm-3">Album Name</dt>
+        <dd class="col-sm-9">{{ track()!.albumName }}</dd>
+
+        <dt class="col-sm-3">Release Date</dt>
+        <dd class="col-sm-9">{{ track()!.releaseDate | date: 'fullDate' }}</dd>
+
+        <dt class="col-sm-3">Play Count</dt>
+        <dd class="col-sm-9">
+          <span class="badge bg-info text-dark">{{ track()!.playCount }}</span>
+        </dd>
+      </dl>
+      <a [routerLink]="['/tracks/details', track()!.title]" class="btn btn-outline-primary">
+        <i class="bi bi-eye me-1"></i>View Full Details
+      </a>
+    </div>
+  </div>
+} @else if (searched()) {
+  <app-empty-state
+    title="No track found"
+    message="No track found for given filters." />
+}

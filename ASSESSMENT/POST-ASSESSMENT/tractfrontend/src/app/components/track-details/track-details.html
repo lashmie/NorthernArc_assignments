@@ -1,0 +1,49 @@
+<app-page-header
+  title="Track Details"
+  subtitle="Read-only view of the selected track"
+  icon="bi-info-circle">
+</app-page-header>
+
+<a routerLink="/tracks" class="btn btn-outline-secondary mb-3">
+  <i class="bi bi-arrow-left me-1"></i>Back to Tracks
+</a>
+
+@if (error()) {
+  <div class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle me-2"></i>{{ error() }}
+  </div>
+}
+
+@if (loading()) {
+  <app-loading />
+} @else if (track()) {
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0"><i class="bi bi-music-note me-2"></i>{{ track()!.title }}</h5>
+    </div>
+    <div class="card-body">
+      <dl class="row mb-0">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9">{{ track()!.id }}</dd>
+
+        <dt class="col-sm-3">Title</dt>
+        <dd class="col-sm-9">{{ track()!.title }}</dd>
+
+        <dt class="col-sm-3">Album Name</dt>
+        <dd class="col-sm-9">{{ track()!.albumName }}</dd>
+
+        <dt class="col-sm-3">Release Date</dt>
+        <dd class="col-sm-9">{{ track()!.releaseDate | date: 'fullDate' }}</dd>
+
+        <dt class="col-sm-3">Play Count</dt>
+        <dd class="col-sm-9">
+          <span class="badge bg-info text-dark">{{ track()!.playCount }}</span>
+        </dd>
+      </dl>
+    </div>
+  </div>
+} @else {
+  <app-empty-state
+    title="Track not found"
+    message="We couldn't find a track with that title." />
+}

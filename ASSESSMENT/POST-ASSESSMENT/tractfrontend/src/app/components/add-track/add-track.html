@@ -1,0 +1,94 @@
+<app-page-header
+  title="Add Track"
+  subtitle="Create a new music track"
+  icon="bi-plus-circle">
+</app-page-header>
+
+@if (success()) {
+  <div class="alert alert-success">
+    <i class="bi bi-check-circle me-2"></i>{{ success() }}
+  </div>
+}
+
+@if (error()) {
+  <div class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle me-2"></i>{{ error() }}
+  </div>
+}
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="mb-3">
+        <label class="form-label">Title <span class="text-danger">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="title()"
+          (ngModelChange)="title.set($event)"
+          name="title"
+          [class.is-invalid]="submitted() && !title().trim()"
+          placeholder="e.g. Shape of You" />
+        @if (submitted() && !title().trim()) {
+          <div class="invalid-feedback">Title is required.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Album Name <span class="text-danger">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="albumName()"
+          (ngModelChange)="albumName.set($event)"
+          name="albumName"
+          [class.is-invalid]="submitted() && !albumName().trim()"
+          placeholder="e.g. Divide" />
+        @if (submitted() && !albumName().trim()) {
+          <div class="invalid-feedback">Album name is required.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Release Date <span class="text-danger">*</span></label>
+        <input
+          type="date"
+          class="form-control"
+          [ngModel]="releaseDate()"
+          (ngModelChange)="releaseDate.set($event)"
+          name="releaseDate"
+          [class.is-invalid]="submitted() && !releaseDate().trim()" />
+        @if (submitted() && !releaseDate().trim()) {
+          <div class="invalid-feedback">Release date is required.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Play Count <span class="text-danger">*</span></label>
+        <input
+          type="number"
+          class="form-control"
+          [ngModel]="playCount()"
+          (ngModelChange)="playCount.set($event)"
+          name="playCount"
+          min="0"
+          [class.is-invalid]="submitted() && (playCount() === null || (playCount() ?? -1) < 0)"
+          placeholder="e.g. 150" />
+        @if (submitted() && (playCount() === null || (playCount() ?? -1) < 0)) {
+          <div class="invalid-feedback">Play count must be 0 or greater.</div>
+        }
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-success" [disabled]="loading()">
+          @if (loading()) {
+            <span class="spinner-border spinner-border-sm me-1"></span>Saving...
+          } @else {
+            <i class="bi bi-check-lg me-1"></i>Create Track
+          }
+        </button>
+        <a routerLink="/tracks" class="btn btn-outline-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<app-page-header
+  title="All Tracks"
+  subtitle="Browse, view and manage your music tracks"
+  icon="bi-list-ul">
+</app-page-header>
+
+<div class="d-flex justify-content-end mb-3">
+  <a routerLink="/tracks/add" class="btn btn-success">
+    <i class="bi bi-plus-circle me-1"></i>Add Track
+  </a>
+</div>
+
+@if (success()) {
+  <div class="alert alert-success alert-dismissible">
+    <i class="bi bi-check-circle me-2"></i>{{ success() }}
+  </div>
+}
+
+@if (error()) {
+  <div class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle me-2"></i>{{ error() }}
+  </div>
+}
+
+@if (loading()) {
+  <app-loading />
+} @else if (tracks().length === 0) {
+  <app-empty-state
+    title="No tracks found"
+    message="Start by adding your first track." />
+} @else {
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Album Name</th>
+            <th>Release Date</th>
+            <th>Play Count</th>
+            <th class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (track of tracks(); track track.id) {
+            <tr>
+              <td>{{ track.id }}</td>
+              <td class="fw-semibold">{{ track.title }}</td>
+              <td>{{ track.albumName }}</td>
+              <td>{{ track.releaseDate | date: 'mediumDate' }}</td>
+              <td>
+                <span class="badge bg-info text-dark">{{ track.playCount }}</span>
+              </td>
+              <td class="text-end">
+                <a
+                  [routerLink]="['/tracks/details', track.title]"
+                  class="btn btn-sm btn-outline-primary me-2">
+                  <i class="bi bi-eye"></i> View
+                </a>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteTrack(track)"
+                  [disabled]="deletingId() === track.id">
+                  @if (deletingId() === track.id) {
+                    <span class="spinner-border spinner-border-sm"></span>
+                  } @else {
+                    <i class="bi bi-trash"></i>
+                  }
+                  Delete
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+}
